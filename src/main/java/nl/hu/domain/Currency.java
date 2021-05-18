@@ -21,6 +21,14 @@ public class Currency {
         this.aantal += aantal;
     }
 
+    public void decreaseAantal(int aantal){
+        if (this.aantal - aantal > 0){         // Only decreases if the amount is higher than 0.
+            this.aantal -= aantal;
+        } else {
+            this.aantal = 0;                    // If the amount would result in a number below or at 0, the amount is set to 0.
+        }
+    }
+
     public String toString(){
         return aantal + " " + type;
     }
