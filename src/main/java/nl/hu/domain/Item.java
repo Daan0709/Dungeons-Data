@@ -4,7 +4,7 @@ public class Item {
     private String naam;
     private String beschrijving;
     private int aantal;
-    private float gewicht;
+    private double gewicht;
 
     public Item(String naam, String beschrijving, int gewicht){
         this.naam = naam;
