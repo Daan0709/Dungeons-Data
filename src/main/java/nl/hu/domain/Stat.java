@@ -33,8 +33,23 @@ public class Stat {
         return score;
     }
 
+    public int getModifier(){
+        return modifier;
+    }
+
     public void updateModifier(){
         modifier = (score - 10) / 2;
+    }
+
+    public boolean equals(Object o){
+        boolean gelijkeObjecten = false;
+        if (o instanceof Stat){
+            Stat andereStat = (Stat) o;
+            if (this.getType().equals(andereStat.getType())){
+                gelijkeObjecten = true;
+            }
+        }
+        return gelijkeObjecten;
     }
 
     public String toString(){

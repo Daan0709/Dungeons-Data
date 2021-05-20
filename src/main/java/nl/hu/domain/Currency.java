@@ -18,6 +18,9 @@ public class Currency {
     }
 
     public void addAantal(int aantal){
+        if (aantal <= 0){
+            return;
+        }
         this.aantal += aantal;
     }
 

@@ -20,7 +20,7 @@ public class Character {
     private ArrayList<Currency> currency = new ArrayList<>();
     private ArrayList<Spell> spells = new ArrayList<>();
 
-    public Character(String naam, String race, int experience, int maxHitpoints, Class klasse, int maxSpellslots){
+    public Character(String naam, String race, int experience, int maxHitpoints, String klasse, int maxSpellslots) throws WrongTypeException {
         this.naam = naam;
         this.race = race;
         this.experience = experience;
@@ -28,11 +28,11 @@ public class Character {
         this.maxHitpoints = maxHitpoints;
         this.maxSpellslots = maxSpellslots;
         this.verbruikteSpellslots = 0;
-        this.klasse = klasse;
+        setKlasse(klasse);
         updateLevel();
 
         ArrayList<String> allStats = new ArrayList<>(Arrays.asList("Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"));
-        for (String stat : allStats){
+        for (String stat : allStats) {
             stats.add(new Stat(stat));
         }
         updateMaxGewicht();
@@ -41,7 +41,7 @@ public class Character {
         currency.add(new Currency("Silver"));
         currency.add(new Currency("Copper"));
     }
-    public Character(String naam, String race, int maxHitpoints, Class klasse, int maxSpellslots){
+    public Character(String naam, String race, int maxHitpoints, String klasse, int maxSpellslots) throws WrongTypeException {
         this(naam, race, 0, maxHitpoints, klasse, maxSpellslots);
     }
 
@@ -95,6 +95,28 @@ public class Character {
 
     public ArrayList<Spell> getSpells() {
         return spells;
+    }
+
+    public Currency getSpecificCurrency(String type){
+        for (Currency currency : getCurrency()){
+            if (currency.getType().equals(type)){
+                return currency;
+            }
+        }
+        return null;
+    }
+
+    public Stat getSpecificStat(String type){
+        for (Stat stat : getStats()){
+            if (stat.getType().equals(type)){
+                return stat;
+            }
+        }
+        return null;
+    }
+
+    public void setKlasse(String type) throws WrongTypeException {
+        klasse = new Class(type);
     }
 
     public void setExperience(int xp){
@@ -221,17 +243,17 @@ public class Character {
         }
     }
 
-    public int calculateTotalGold(){
-        int res = 0;
+    public double calculateTotalGold(){
+        double res = 0;
         for (Currency currency : currency){
             if (currency.getType().equals("Platinum")){
                 res += (10 * currency.getAantal());
             } else if (currency.getType().equals("Gold")) {
                 res += currency.getAantal();
             } else if (currency.getType().equals("Silver")) {
-                res += (currency.getAantal() / 10);
+                res += ((double) currency.getAantal() / 10);    // Silver en copper gecast naar double om afronding te voorkomen.
             } else if (currency.getType().equals("Copper")) {
-                res += (currency.getAantal() / 100);
+                res += ((double) currency.getAantal() / 100);   // ^^^
             }
         }
         return res;
