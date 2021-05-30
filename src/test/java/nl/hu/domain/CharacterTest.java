@@ -9,16 +9,10 @@ class CharacterTest {
 
     private Character c1;
     private Character c2;
-    private Item i1;
-    private Item i2;
 
     @BeforeEach
     public void init() throws WrongTypeException {
-        i1 = new Item("Spear", "A pointy stick", 15);
-        i2 = new Item("Shield", "A wooden round shield", 10);
         c1 = new Character("John", "High Elf", 300, 17, "Ranger", 3);
-        c1.addItem(i1);
-        c1.addItem(i2);
     }
 
     @Test
@@ -175,6 +169,24 @@ class CharacterTest {
         c1.setStat("Strength", 10);
 
         assertEquals(150, c1.getMaxGewicht());
+    }
+
+    @Test
+    public void testGewichtItemsMagNietBovenMaxGewicht(){
+        /**
+         * Het gecombineerde gewicht van alle items
+         * mogen niet boven het maxGewicht van een
+         * character komen.
+         */
+        Item i1 = new Item("Spear", "A pointy stick", 15);
+        c1.setStat("Strength", 10);
+        c1.addItem(i1);
+
+        assertEquals(15, c1.getCurrentWeight());
+
+        c1.increaseItemAmount(i1, 10);
+
+        assertEquals(15, c1.getCurrentWeight());
     }
 
     @Test

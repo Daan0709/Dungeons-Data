@@ -2,6 +2,8 @@ package nl.hu.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Character {
     private String naam;
@@ -10,13 +12,14 @@ public class Character {
     private int level;
     private int hitpoints;
     private int maxHitpoints;
+    private double currentWeight;
     private int maxGewicht;
     private int maxSpellslots;
     private int verbruikteSpellslots;
     private Class klasse;
     private ArrayList<Stat> stats = new ArrayList<>();
     private ArrayList<Skill> skills = new ArrayList<>();
-    private ArrayList<Item> itemlist = new ArrayList<>();
+    private HashMap<Item, Integer> itemlist = new HashMap<>();
     private ArrayList<Currency> currency = new ArrayList<>();
     private ArrayList<Spell> spells = new ArrayList<>();
 
@@ -36,6 +39,7 @@ public class Character {
             stats.add(new Stat(stat));
         }
         updateMaxGewicht();
+        updateCurrentWeight();
         currency.add(new Currency("Platinum"));
         currency.add(new Currency("Gold"));
         currency.add(new Currency("Silver"));
@@ -69,6 +73,10 @@ public class Character {
         return hitpoints;
     }
 
+    public double getCurrentWeight(){
+        return currentWeight;
+    }
+
     public int getMaxGewicht() {
         return maxGewicht;
     }
@@ -85,7 +93,7 @@ public class Character {
         return skills;
     }
 
-    public ArrayList<Item> getItemlist() {
+    public HashMap<Item, Integer> getItemlist() {
         return itemlist;
     }
 
@@ -115,6 +123,15 @@ public class Character {
         return null;
     }
 
+    public Item getSpecificItem(String naam, String beschrijving){
+        for (Item item : itemlist.keySet()){
+            if (item.getNaam().equals(naam) && item.getBeschrijving().equals(beschrijving)){
+                return item;
+            }
+        }
+        return null;
+    }
+
     public void setKlasse(String type) throws WrongTypeException {
         klasse = new Class(type);
     }
@@ -128,6 +145,7 @@ public class Character {
         experience += aantal;
         updateLevel();
     }
+
     public void setMaxHitpoints(int hp){
         maxHitpoints = hp;
     }
@@ -174,13 +192,25 @@ public class Character {
         maxGewicht = strength.getScore() * 15;
     }
 
+    public void updateCurrentWeight(){
+        double res = 0;
+        for (Map.Entry<Item, Integer> entry : itemlist.entrySet()){
+            Item item = entry.getKey();
+            int aantal = entry.getValue();
+            res += (item.getGewicht() * aantal);
+        }
+        currentWeight = res;
+    }
+
     public void setStat(String type, int score){
         for (Stat stat : stats){
             if (stat.getType().equals(type)){
                 stat.setScore(score);
             }
         }
-        updateMaxGewicht();
+        if (type.equals("Strength")) {
+            updateMaxGewicht();
+        }
     }
 
     public void addCurrency(String type, int aantal){
@@ -263,8 +293,35 @@ public class Character {
         spells.add(spell);
     }
 
+    public void increaseItemAmount(Item item, int aantal){
+        if (item.getGewicht() * aantal + currentWeight <= maxGewicht){
+            for (Map.Entry<Item, Integer> entry : itemlist.entrySet()){
+             if (item.equals(entry.getKey())) {
+                 itemlist.put(item, itemlist.get(item) + aantal);
+                 updateCurrentWeight();
+             }
+            }
+        }
+    }
+
+    public void decreaseItemAmount(Item item, int aantal){
+        for (Map.Entry<Item, Integer> entry : itemlist.entrySet()){
+            if (item.equals(entry.getKey())) {
+                if (entry.getValue() <= aantal){
+                    itemlist.remove(item);
+                } else {
+                    itemlist.put(item, itemlist.get(item) - aantal);
+                    updateCurrentWeight();
+                }
+            }
+        }
+    }
+
     public void addItem(Item item){
-        itemlist.add(item);
+        if (item.getGewicht() + currentWeight <= maxGewicht) {
+            itemlist.put(item, 1);
+            updateCurrentWeight();
+        }
     }
 
     public void addSkill(Skill skill){
