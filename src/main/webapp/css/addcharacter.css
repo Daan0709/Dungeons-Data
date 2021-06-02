@@ -1,0 +1,57 @@
+.row {
+    display: grid;
+    grid-template-columns: 7fr 9fr;
+    height: 50px;
+}
+
+h1 {
+    text-align: center;
+    color: red;
+}
+
+#accountlogo {
+    height: 50px;
+    width: 50px;
+}
+
+#dndlogo {
+    height: 50px;
+    width: 180px;
+}
+
+#toplegend {
+    font-weight: bold;
+    font-size: large;
+    color: red;
+}
+
+form > label {
+    font-size: 50px;
+}
+
+.formgrid {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    row-gap: 10px;
+}
+
+#stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 10px 0px;
+}
+
+#stats > label {
+    text-align: right;
+}
+
+#buttondiv {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    width: 120px;
+    height: 40px;
+}

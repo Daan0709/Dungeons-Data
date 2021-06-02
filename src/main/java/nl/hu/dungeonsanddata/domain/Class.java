@@ -1,9 +1,10 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Class {
+public class Class implements Serializable {
     private String type;
 
     public Class(String type) throws WrongTypeException {

@@ -1,6 +1,8 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
-public class Currency {
+import java.io.Serializable;
+
+public class Currency implements Serializable {
     private String type;
     private int aantal;
 

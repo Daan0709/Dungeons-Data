@@ -1,6 +1,8 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String naam;
     private String beschrijving;
     private double gewicht;

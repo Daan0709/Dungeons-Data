@@ -1,6 +1,8 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
-public class Stat {
+import java.io.Serializable;
+
+public class Stat implements Serializable {
     private String type;
     private int score;
     private int modifier;

@@ -1,0 +1,36 @@
+.row {
+    display: grid;
+    grid-template-columns: 7fr 9fr;
+    height: 50px;
+}
+
+h1 {
+    text-align: center;
+    color: red;
+}
+
+#accountlogo {
+    height: 50px;
+    width: 50px;
+}
+
+#dndlogo {
+    height: 50px;
+    width: 180px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: black solid 2px;
+}
+
+#buttondiv {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+#addcharacter {
+    height: 40px;
+}

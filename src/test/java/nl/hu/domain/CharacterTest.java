@@ -1,5 +1,7 @@
 package nl.hu.domain;
 
+import nl.hu.dungeonsanddata.domain.*;
+import nl.hu.dungeonsanddata.domain.Character;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

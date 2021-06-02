@@ -1,5 +1,8 @@
 package nl.hu.domain;
 
+import nl.hu.dungeonsanddata.domain.Character;
+import nl.hu.dungeonsanddata.domain.Currency;
+import nl.hu.dungeonsanddata.domain.WrongTypeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

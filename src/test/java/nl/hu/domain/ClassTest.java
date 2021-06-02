@@ -1,5 +1,7 @@
 package nl.hu.domain;
 
+import nl.hu.dungeonsanddata.domain.Class;
+import nl.hu.dungeonsanddata.domain.WrongTypeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

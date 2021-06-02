@@ -1,6 +1,8 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
-public class Spell {
+import java.io.Serializable;
+
+public class Spell implements Serializable {
     private String naam;
     private String beschrijving;
     private String duration;

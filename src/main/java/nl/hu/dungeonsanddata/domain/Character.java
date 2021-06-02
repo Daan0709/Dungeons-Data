@@ -1,11 +1,12 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Character {
+public class Character implements Serializable {
     private String naam;
     private String race;
     private int experience;

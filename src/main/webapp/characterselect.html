@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Select</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/favicon.ico"/>
+    <link rel="stylesheet" href="css/characterselect.css" type="text/css"/>
+    <script type="application/javascript" src="js/characterselect.js"></script>
+</head>
+<body onload="loadCharacters()">
+    <div class="row">
+        <div class="column">
+            <img src="assets/account.webp" id="accountlogo">
+        </div>
+        <div class="column">
+            <img src="assets/dnd.png" id="dndlogo">
+        </div>
+    </div>
+    <hr>
+
+    <div class="grid">
+        <h1>Characters</h1>
+        <div class="grid" id="charactergrid"></div>
+        <div id="buttondiv">
+            <button id="addcharacter" onclick="addCharacter()">add new character</button>
+        </div>
+    </div>
+
+</body>
+</html>

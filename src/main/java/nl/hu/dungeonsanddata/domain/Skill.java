@@ -1,6 +1,8 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
-public class Skill {
+import java.io.Serializable;
+
+public class Skill implements Serializable {
     private String naam;
     private String beschrijving;
 
