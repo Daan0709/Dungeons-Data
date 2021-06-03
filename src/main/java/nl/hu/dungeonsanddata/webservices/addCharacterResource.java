@@ -2,7 +2,6 @@ package nl.hu.dungeonsanddata.webservices;
 
 import nl.hu.dungeonsanddata.domain.Account;
 import nl.hu.dungeonsanddata.domain.Character;
-import nl.hu.dungeonsanddata.domain.WrongTypeException;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -43,7 +42,6 @@ public class addCharacterResource {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        System.out.println(character);
         return Response.ok(character).build();
     }
 }
