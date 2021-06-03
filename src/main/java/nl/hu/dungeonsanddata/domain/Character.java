@@ -1,10 +1,7 @@
 package nl.hu.dungeonsanddata.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Character implements Serializable {
     private String naam;
@@ -104,6 +101,14 @@ public class Character implements Serializable {
 
     public ArrayList<Spell> getSpells() {
         return spells;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getMaxHitpoints() {
+        return maxHitpoints;
     }
 
     public Currency getSpecificCurrency(String type){
@@ -343,5 +348,18 @@ public class Character implements Serializable {
 
     public String toString(){
         return String.format("%s the level %s %s %s", naam, level, race, klasse);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Character character = (Character) o;
+        return getExperience() == character.getExperience() && getLevel() == character.getLevel() && getHitpoints() == character.getHitpoints() && getMaxHitpoints() == character.getMaxHitpoints() && Double.compare(character.getCurrentWeight(), getCurrentWeight()) == 0 && getMaxGewicht() == character.getMaxGewicht() && getMaxSpellslots() == character.getMaxSpellslots() && getVerbruikteSpellslots() == character.getVerbruikteSpellslots() && getNaam().equals(character.getNaam()) && getRace().equals(character.getRace()) && getKlasse().equals(character.getKlasse()) && getStats().equals(character.getStats()) && getSkills().equals(character.getSkills()) && getItemlist().equals(character.getItemlist()) && getCurrency().equals(character.getCurrency()) && getSpells().equals(character.getSpells());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNaam(), getRace(), getExperience(), getLevel(), getHitpoints(), getMaxHitpoints(), getCurrentWeight(), getMaxGewicht(), getMaxSpellslots(), getVerbruikteSpellslots(), getKlasse(), getStats(), getSkills(), getItemlist(), getCurrency(), getSpells());
     }
 }

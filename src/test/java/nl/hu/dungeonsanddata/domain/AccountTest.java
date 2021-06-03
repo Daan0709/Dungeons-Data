@@ -1,5 +1,6 @@
 package nl.hu.dungeonsanddata.domain;
 
+import nl.hu.dungeonsanddata.persistence.PersistenceManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +16,11 @@ class AccountTest {
     public void init() throws WrongTypeException {
         a1 = new Account("test@email.nl", "wachtwoord");
         c1 = new Character("John", "High Elf", 18, "Cleric", 5);
+        a1.addCharacter(c1);
     }
 
     @Test
     public void testAddCharacterToAccount(){
-        a1.addCharacter(c1);
         ArrayList<Character> characters = a1.getCharacters();
         assertEquals(characters.get(0), c1);
     }

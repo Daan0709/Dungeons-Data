@@ -14,7 +14,7 @@ import nl.hu.dungeonsanddata.domain.Character;
 
 public class PersistenceManager {
     private final static String ENDPOINT = "https://dungeonsanddata.blob.core.windows.net/";
-    private final static String SASTOKEN = "?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-06-02T18:34:08Z&st=2021-06-02T10:34:08Z&spr=https&sig=zO38%2FJpEUIUmSTd%2F9A2m6iDRMjPABtmdXyIwCtKQgEc%3D";
+    private final static String SASTOKEN = "?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-06-04T00:48:07Z&st=2021-06-03T16:48:07Z&spr=https&sig=GBSTqvQJ3WdKv%2BDMTdnWzu2dUxudLe8%2BwqkWq0bbyCg%3D";
     private final static String CONTAINER = "charactercontainer";
 
     private static BlobContainerClient blobContainer = new BlobContainerClientBuilder()
@@ -54,7 +54,7 @@ public class PersistenceManager {
         return characters;
     }
 
-    public static void saveCharactersToAzure(ArrayList<Character> characters, Account account) throws Exception {
+    public static void saveCharactersToAzure(Account account) throws Exception {
         if (!blobContainer.exists()){
             blobContainer.create();
         }
@@ -63,7 +63,7 @@ public class PersistenceManager {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
-        for (Character c : characters){
+        for (Character c : account.getCharacters()){
             oos.writeObject(c);
         }
 
