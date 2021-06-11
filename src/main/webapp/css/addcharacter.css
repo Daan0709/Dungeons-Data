@@ -55,3 +55,7 @@ form > label {
     width: 120px;
     height: 40px;
 }
+
+body {
+    font-family: 'Oswald', sans-serif;
+}

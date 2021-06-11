@@ -11,7 +11,7 @@ function showCharacters(myjson){
     for (var i = 0; i < myjson.length; i++){
         let h2 = document.createElement("h2");
         h2.innerHTML = (`${myjson[i].naam} the ${myjson[i].race} ${myjson[i].klasse.type}`);
-        h2.id = "character"
+        h2.className = "character"
         charactergrid.append(h2);
     }
 
