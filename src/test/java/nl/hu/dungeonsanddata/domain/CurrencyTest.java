@@ -1,4 +1,4 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
 import nl.hu.dungeonsanddata.domain.Character;
 import nl.hu.dungeonsanddata.domain.Currency;
@@ -29,6 +29,4 @@ class CurrencyTest {
         c1.decreaseCurrency("Gold", -5);
         assertFalse(gold.getAantal() < 0);
     }
-
-
 }

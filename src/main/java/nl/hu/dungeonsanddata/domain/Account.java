@@ -54,4 +54,8 @@ public class Account implements Serializable {
     public void setCharacters(ArrayList<Character> characters){
         this.characters = characters;
     }
+
+    public String toString(){
+        return email + " ID: " + accountId;
+    }
 }

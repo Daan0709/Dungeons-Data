@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Register Account</title>
     <link rel="shortcut icon" type="image/jpg" href="assets/favicon.ico"/>
-    <link rel="stylesheet" href="css/account.css" type="text/css"/>
-<!--    <script type="application/javascript" src="js/addcharacter.js"></script>-->
+    <link rel="stylesheet" href="css/registeraccount.css" type="text/css"/>
+    <script type="application/javascript" src="js/registeraccount.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 </head>
@@ -16,19 +16,20 @@
         </div>
     </div>
     <hr>
-    <div id="logincontainer">
-        <form id="loginform">
+    <div id="formcontainer">
+        <form id="registerform">
             <fieldset>
-                <legend>Login</legend>
+                <legend>Register Account</legend>
                 <div id="formgrid">
                     <label for="email">Email:</label>
                     <input id="email" type="email" name="email">
                     <label for="password">Password:</label>
                     <input id="password" type="password" name="password">
+                    <label for="retypepass">Retype Password:</label>
+                    <input id="retypepass" type="password" name="retype_password">
                 </div>
                 <div id="buttongrid">
-                    <input type="button" id="loginbutton" value="Log in"><br>
-                    <a href="registeraccount.html" id="registeracc">Register Account</a>
+                    <input type="button" id="registerbutton" value="Register" onclick="sendJsonData()">
                 </div>
             </fieldset>
         </form>

@@ -58,4 +58,15 @@ form > label {
 
 body {
     font-family: 'Oswald', sans-serif;
+    font-size: large;
+}
+
+#characterform {
+    padding: 50px 100px;
+}
+
+input[type="button"] {
+    font-family: 'Oswald', sans-serif;
+    font-size: large;
+    width: 125px;
 }

@@ -15,7 +15,7 @@ h1 {
     width: 120px;
 }
 
-#logincontainer {
+#formcontainer {
     padding: 0px 400px;
     margin: 0px 100px;
 }
@@ -36,10 +36,6 @@ body {
     font-size: 30px;
 }
 
-fieldset {
-    padding: 100px;
-}
-
 #buttongrid {
     margin: 50px 50px;
     display: flex;
@@ -48,15 +44,8 @@ fieldset {
     align-items: center;
 }
 
-#loginbutton {
-    height: 50px;
-    width: 130px;
-    font-family: 'Oswald', sans-serif;
+#registerbutton {
     font-size: large;
-}
-
-#registeracc {
     font-family: 'Oswald', sans-serif;
-    font-size: small;
-    margin-top: 20px;
+    width: 125px;
 }

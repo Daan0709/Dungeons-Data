@@ -15,12 +15,13 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
     public void contextInitialized(ServletContextEvent sce){
         System.out.println("Starting...");
         a1 = new Account("hoi@hoi.nl", "wachtwoord");
+        Account a2 = new Account("test@test.nl", "test");
         try {
             Character c1 = new Character("John", "High Elf", 500, "Ranger", 3);
             a1.addCharacter(c1);
             Character c2 = new Character("Kees", "High Elf", 23, "Barbarian", 0);
             a1.addCharacter(c2);
-            PersistenceManager.saveCharactersToAzure(a1);
+            PersistenceManager.saveAccountsToAzure();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,7 +31,9 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
     public void contextDestroyed(ServletContextEvent sce) {
         System.out.println("Shutting down...");
         try {
-            System.out.println(PersistenceManager.loadCharactersFromAzure(a1));
+            for (Account a : PersistenceManager.loadAccountsFromAzure()){
+                System.out.println(a);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

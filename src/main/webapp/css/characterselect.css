@@ -33,6 +33,8 @@ h1 {
 
 #addcharacter {
     height: 40px;
+    font-family: 'Oswald', sans-serif;
+    font-size: large;
 }
 
 body {

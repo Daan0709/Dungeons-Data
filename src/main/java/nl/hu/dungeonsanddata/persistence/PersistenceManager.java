@@ -14,8 +14,8 @@ import nl.hu.dungeonsanddata.domain.Character;
 
 public class PersistenceManager {
     private final static String ENDPOINT = "https://dungeonsanddata.blob.core.windows.net/";
-    private final static String SASTOKEN = "?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-06-10T16:53:25Z&st=2021-06-10T08:53:25Z&spr=https&sig=UzK3t9MfS5jN3ZV4SKj8fMXaTGeVEzC2fBOKQxFmNgI%3D";
-    private final static String CONTAINER = "charactercontainer";
+    private final static String SASTOKEN = "?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-06-30T21:21:35Z&st=2021-06-11T13:21:35Z&spr=https&sig=P7%2ByC9TnQ1GQOeIM1T9vsa%2BVtWzUZEq%2BybtyQ3rnGTc%3D";
+    private final static String CONTAINER = "accountscontainer";
 
     private static BlobContainerClient blobContainer = new BlobContainerClientBuilder()
             .endpoint(ENDPOINT)
@@ -23,12 +23,12 @@ public class PersistenceManager {
             .containerName(CONTAINER)
             .buildClient();
 
-    public static ArrayList<Character> loadCharactersFromAzure(Account account) throws Exception {
+    public static ArrayList<Account> loadAccountsFromAzure() throws Exception {
         if (!blobContainer.exists()){
             blobContainer.create();
         }
 
-        BlobClient blob = blobContainer.getBlobClient(account.getAccountId()+"_character_blob");
+        BlobClient blob = blobContainer.getBlobClient("accounts_blob");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         blob.download(baos);
@@ -36,12 +36,12 @@ public class PersistenceManager {
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         ObjectInputStream ois = new ObjectInputStream(bais);
 
-        ArrayList<Character> characters = new ArrayList<>();
+        ArrayList<Account> accounts = new ArrayList<>();
 
         while (true){
-            try {
-                Character c = (Character) ois.readObject();
-                characters.add(c);
+            try{
+                Account a = (Account) ois.readObject();
+                accounts.add(a);
             } catch (Exception e){
                 break;
             }
@@ -51,20 +51,20 @@ public class PersistenceManager {
         ois.close();
         baos.close();
 
-        return characters;
+        return accounts;
     }
 
-    public static void saveCharactersToAzure(Account account) throws Exception {
+    public static void saveAccountsToAzure() throws Exception {
         if (!blobContainer.exists()){
             blobContainer.create();
         }
 
-        BlobClient blob = blobContainer.getBlobClient(account.getAccountId()+"_character_blob");
+        BlobClient blob = blobContainer.getBlobClient("accounts_blob");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
-        for (Character c : account.getCharacters()){
-            oos.writeObject(c);
+        for (Account a : Account.getAllAccounts()){
+            oos.writeObject(a);
         }
 
         byte[] bytez = baos.toByteArray();

@@ -1,4 +1,4 @@
-package nl.hu.domain;
+package nl.hu.dungeonsanddata.domain;
 
 import nl.hu.dungeonsanddata.domain.Class;
 import nl.hu.dungeonsanddata.domain.WrongTypeException;
