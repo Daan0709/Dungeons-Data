@@ -13,7 +13,7 @@ class AccountTest {
     Character c1;
 
     @BeforeEach
-    public void init() throws WrongTypeException {
+    public void init() throws Exception {
         a1 = new Account("test@email.nl", "wachtwoord");
         c1 = new Character("John", "High Elf", 18, "Cleric", 5);
         a1.addCharacter(c1);

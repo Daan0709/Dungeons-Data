@@ -9,11 +9,15 @@ async function sendJsonData(event) {
         headers: {'Content-Type': 'application/json'}
     }
 
-    await fetch("restservices/registeraccount", fetchOptions)
-        .then(response => {if (response.status === 401){
-            window.alert("Passwords do not match!");
-    }
-        else{
-            window.location.href="index.html";
-        }})
+    await fetch("restservices/account/register", fetchOptions)
+        .then(response => {
+            if (response.status === 401){
+                window.alert("Passwords do not match!");
+            }
+            else if (response.status === 400){
+                window.alert("Fill in all the fields!");
+            }
+            else{
+                window.location.href="index.html";
+            }})
 }

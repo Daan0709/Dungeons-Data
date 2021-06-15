@@ -1,29 +1,60 @@
 package nl.hu.dungeonsanddata.domain;
 
+import nl.hu.dungeonsanddata.persistence.PersistenceManager;
+
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.ArrayList;
 
-public class Account implements Serializable {
+public class Account implements Serializable, Principal {
     private String email;
     private String wachtwoord;
     private int accountId;
+    private String role;
     private ArrayList<Character> characters = new ArrayList<>();
     private static int accountAmount;
     private static ArrayList<Account> allAccounts = new ArrayList<>();
 
-    public Account(String email, String wachtwoord){
+    public Account(String email, String wachtwoord) throws Exception {
         this.email = email;
         this.wachtwoord = wachtwoord;
         accountAmount += 1;
         this.accountId = accountAmount;
+        this.role = "user";
         allAccounts.add(this);
+        PersistenceManager.saveAccountsToAzure();
     }
 
+    public static void setAllAccounts() throws Exception {
+        allAccounts = PersistenceManager.loadAccountsFromAzure();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public static boolean isValid(String email, String wachtwoord){
+        for (Account account : allAccounts){
+            if (account.email.equals(email) && account.wachtwoord.equals(wachtwoord)){
+                return true;
+            }
+        }
+        return false;
+    }
     public static ArrayList<Account> getAllAccounts() {
         return allAccounts;
     }
 
-    public String getEmail(){
+    public static Account getAccountByEmail(String email){
+        for (Account account : allAccounts){
+            if (account.getName().equals(email)){
+                return account;
+            }
+        }
+        return null;
+    }
+
+    public String getName(){
         return email;
     }
 

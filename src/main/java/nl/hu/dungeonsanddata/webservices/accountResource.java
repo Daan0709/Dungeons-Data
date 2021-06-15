@@ -1,6 +1,7 @@
 package nl.hu.dungeonsanddata.webservices;
 
 import nl.hu.dungeonsanddata.domain.Account;
+import nl.hu.dungeonsanddata.persistence.PersistenceManager;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -12,13 +13,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.StringReader;
 
-@Path("/registeraccount")
-public class registerAccountResource {
+@Path("account")
+public class accountResource {
 
     @POST
+    @Path("register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerAccount(String jsonBody){
+    public Response registerAccount(String jsonBody) throws Exception {
 
         Account account;
         try {
@@ -26,6 +28,9 @@ public class registerAccountResource {
             if (!object.getString("password").equals(object.getString("retype_password"))){
                 throw new Exception("Passwords do not match");
             } else {
+                if (object.getString("email").equals("") || object.getString("password").equals("")){
+                    throw new Exception("Empty fields!");
+                }
                 account = new Account(object.getString("email"), object.getString("password"));
             }
         } catch (Exception e){
@@ -34,6 +39,8 @@ public class registerAccountResource {
             }
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        System.out.println(account);
+        PersistenceManager.saveAccountsToAzure();
         return Response.ok(account).build();
     }
 }

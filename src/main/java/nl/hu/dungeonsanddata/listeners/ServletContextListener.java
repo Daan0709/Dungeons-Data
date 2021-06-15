@@ -10,18 +10,18 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class ServletContextListener implements javax.servlet.ServletContextListener {
-    Account a1;
     @Override
     public void contextInitialized(ServletContextEvent sce){
         System.out.println("Starting...");
-        a1 = new Account("hoi@hoi.nl", "wachtwoord");
-        Account a2 = new Account("test@test.nl", "test");
         try {
+            Account a1 = new Account("hoi@hoi.nl", "wachtwoord");
+            Account a2 = new Account("test@test.nl", "test");
             Character c1 = new Character("John", "High Elf", 500, "Ranger", 3);
             a1.addCharacter(c1);
-            Character c2 = new Character("Kees", "High Elf", 23, "Barbarian", 0);
+            Character c2 = new Character("Kees", "High Elf", 23, "Rogue", 0);
             a1.addCharacter(c2);
-            PersistenceManager.saveAccountsToAzure();
+            Character c3 = new Character("Bardin", "Dwarf", 40, "Barbarian", 0);
+            a2.addCharacter(c3);
         } catch (Exception e) {
             e.printStackTrace();
         }

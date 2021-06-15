@@ -6,15 +6,36 @@ async function sendJsonData(event) {
     let fetchOptions = {
         method: 'POST',
         body: JSON.stringify(jsonRequestBody),
-        headers: {'Content-Type': 'application/json'}
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.sessionStorage.getItem("JWT")
+        }
     }
 
-    await fetch("/restservices/addcharacter/1", fetchOptions);
+    let response = await fetch("/restservices/addcharacter", fetchOptions);
 
-    window.location.href="characterselect.html";
+    if (response.ok){
+        window.location.href="characterselect.html";
+    }
 
 }
 
 async function cancelFunc(event){
     window.location.href="characterselect.html";
+}
+
+function logout(){
+    window.sessionStorage.setItem("JWT", "");
+}
+
+function addCharacter(event){
+    window.location.href="addcharacter.html";
+}
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
 }

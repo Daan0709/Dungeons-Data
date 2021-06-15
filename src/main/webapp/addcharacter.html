@@ -10,9 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html" onclick="logout()">Log Out</a>
+    </div>
     <div class="row">
         <div class="column">
-            <img src="assets/account.webp" id="accountlogo" alt="accountlogo">
+            <img src="assets/account.webp" id="accountlogo" alt="accountlogo" onclick="openNav()">
         </div>
         <div class="column">
             <img src="assets/dnd.png" id="dndlogo" alt="dndlogo">
