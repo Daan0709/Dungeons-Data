@@ -11,6 +11,14 @@ public class Skill implements Serializable {
         this.beschrijving = beschrijving;
     }
 
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
     public String toString(){
         return naam + ": " + beschrijving;
     }

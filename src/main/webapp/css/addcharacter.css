@@ -108,3 +108,8 @@ input[type="button"] {
     font-size: large;
     width: 125px;
 }
+
+#errordiv {
+    color: red;
+    text-align: center;
+}

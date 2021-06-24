@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/favicon.ico"/>
+    <link rel="stylesheet" href="css/character.css" type="text/css"/>
+    <script type="application/javascript" src="js/character.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body onload="loadCharacter()">
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html" onclick="logout()">Log Out</a>
+        <a href="characterselect.html">Characters</a>
+    </div>
+    <div class="row">
+        <div class="column">
+            <img src="assets/account.webp" id="accountlogo" alt="accountlogo" onclick="openNav()">
+        </div>
+        <div class="column">
+            <img src="assets/dnd.png" id="dndlogo" alt="dndlogo">
+        </div>
+    </div>
+    <hr>
+    <div id="topinfo">
+        <div id="character"></div>
+        <div id="hitpoints"></div>
+        <div id="spellslotdiv">
+            <input type="button" value="Adjust Spellslots" class="button" id="adjustspellslots" onclick="adjustSpellslots()">
+            <div id="spellslots">
+                <div>Spellslots:</div>
+            </div>
+            <input type="button" value="Clear Spellslots" class="button" id="clearspellslots" onclick="clearSpellslots()">
+        </div>
+    </div>
+    <div id="stats">
+        <fieldset>
+            <legend class="red">Stats</legend>
+            <input type="button" class="button" value="Adjust Stats" onclick="adjustStats()">
+            <div id="statscontainer">
+                <div class="stat">Strength
+                    <div>
+                        <div id="strength"></div>
+                        <div class="modifier" id="strengthmodifier"></div>
+                    </div>
+                </div>
+                <div class="stat">Dexterity
+                    <div>
+                        <div id="dexterity"></div>
+                        <div class="modifier" id="dexteritymodifier"></div>
+                    </div>
+                </div>
+                <div class="stat">Constitution
+                    <div>
+                        <div id="constitution"></div>
+                        <div class="modifier" id="constitutionmodifier"></div>
+                    </div>
+                </div>
+                <div class="stat">Intelligence
+                    <div>
+                        <div id="intelligence"></div>
+                        <div class="modifier" id="intelligencemodifier"></div>
+                    </div>
+                </div>
+                <div class="stat">Wisdom
+                    <div>
+                        <div id="wisdom"></div>
+                        <div class="modifier" id="wisdommodifier"></div>
+                    </div>
+                </div>
+                <div class="stat">Charisma
+                    <div>
+                        <div id="charisma"></div>
+                        <div class="modifier" id="charismamodifier"></div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div id="currencies">
+        <fieldset id="currencyfieldset">
+            <legend class="red">Currency</legend>
+            <div class="red" id="totalcurrency">Sample Totalcurrency</div>
+            <input type="button" class="button" value="Adjust Currency" onclick="adjustCurrency()">
+            <div id="currencycontainer">
+                <div class="currency">Platinum
+                    <div id="platinum"></div>
+                </div>
+                <div class="currency">Gold
+                    <div id="gold"></div>
+                </div>
+                <div class="currency">Silver
+                    <div id="silver"></div>
+                </div>
+                <div class="currency">Copper
+                    <div id="copper"></div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="grid">
+        <div class="wrapper" id="itemgrid">
+            <div class="red">Items</div>
+            <input type="button" class="button" value="Add Item">
+            <div id="weight">Weight</div>
+            <div class="red">Qt</div>
+        </div>
+        <div class="wrapper" id="skillgrid">
+            <div class="red">Skills</div>
+            <input type="button" class="button" value="Add Skill">
+        </div>
+        <div class="wrapper" id="spellgrid">
+            <div class="red">Spells</div>
+            <input type="button" class="button" value="Add Spell">
+        </div>
+        <div id="items" class="contentbox itemscontentbox">
+        </div>
+        <div id="skills" class="contentbox bigspace">
+        </div>
+        <div id="spells" class="contentbox bigspace"></div>
+    </div>
+    <div id="modalWindow" class="modal">
+        <div class="modal-content">
+            <form id="hpform">
+                <div class="modal-header">
+                    <div>Change Hitpoints</div>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="formwrapper">
+                    <label for="currenthp">Current HP:</label>
+                    <input type="number" id="currenthp" name="maxhp">
+                    <label for="maxhp">Max HP:</label>
+                    <input type="number" id="maxhp" name="maxhp">
+                </div>
+                <div class="formbuttondiv">
+                    <input type="button" class="button" id="closeform" onclick="closeModal()" value="Close">
+                    <input type="button" class="button" id="sendform" onclick="sendJsonData()" value="Save Changes">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

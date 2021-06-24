@@ -16,6 +16,9 @@ async function sendJsonData(event) {
 
     if (response.ok){
         window.location.href="characterselect.html";
+    } else {
+        let errordiv = document.querySelector("#errordiv");
+        errordiv.innerHTML = "Please fill in all of the fields";
     }
 
 }
@@ -25,7 +28,8 @@ async function cancelFunc(event){
 }
 
 function logout(){
-    window.sessionStorage.setItem("JWT", "");
+    window.sessionStorage.removeItem("JWT");
+    window.sessionStorage.removeItem("character");
 }
 
 function addCharacter(event){

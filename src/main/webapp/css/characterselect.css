@@ -63,6 +63,10 @@ h1 {
     border: black solid 2px;
 }
 
+.grid#charactergrid{
+    border: none;
+}
+
 #buttondiv {
     height: 40px;
     display: flex;
@@ -77,4 +81,18 @@ h1 {
 
 body {
     font-family: 'Oswald', sans-serif;
+}
+
+.character {
+    border-top: black solid 2px;
+    border-bottom: black solid 2px;
+    margin-bottom: 2px;
+    font-size: xx-large;
+    transition-duration: 0.5s;
+}
+
+.character:hover {
+    cursor: pointer;
+    background-color: darkred;
+
 }

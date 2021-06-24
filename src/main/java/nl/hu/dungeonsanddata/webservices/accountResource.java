@@ -39,7 +39,6 @@ public class accountResource {
             }
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        System.out.println(account);
         PersistenceManager.saveAccountsToAzure();
         return Response.ok(account).build();
     }

@@ -19,6 +19,7 @@ public class Character implements Serializable {
     private ArrayList<Skill> skills = new ArrayList<>();
     private HashMap<Item, Integer> itemlist = new HashMap<>();
     private ArrayList<Currency> currency = new ArrayList<>();
+    private double totalCurrency;
     private ArrayList<Spell> spells = new ArrayList<>();
 
     public Character(String naam, String race, int experience, int maxHitpoints, String klasse, int maxSpellslots) throws WrongTypeException {
@@ -42,6 +43,7 @@ public class Character implements Serializable {
         currency.add(new Currency("Gold"));
         currency.add(new Currency("Silver"));
         currency.add(new Currency("Copper"));
+        calculateTotalGold();
     }
     public Character(String naam, String race, int maxHitpoints, String klasse, int maxSpellslots) throws WrongTypeException {
         this(naam, race, 0, maxHitpoints, klasse, maxSpellslots);
@@ -127,6 +129,10 @@ public class Character implements Serializable {
             }
         }
         return null;
+    }
+
+    public double getTotalCurrency(){
+        return totalCurrency;
     }
 
     public Item getSpecificItem(String naam, String beschrijving){
@@ -225,6 +231,7 @@ public class Character implements Serializable {
                 currency.addAantal(aantal);
             }
         }
+        calculateTotalGold();
     }
 
     public void decreaseCurrency(String type, int aantal){
@@ -233,6 +240,7 @@ public class Character implements Serializable {
                 currency.decreaseAantal(aantal);
             }
         }
+        calculateTotalGold();
     }
 
     public void updateLevel(){
@@ -292,6 +300,7 @@ public class Character implements Serializable {
                 res += ((double) currency.getAantal() / 100);   // ^^^
             }
         }
+        totalCurrency = res;
         return res;
     }
 
@@ -340,6 +349,7 @@ public class Character implements Serializable {
 
     public void removeItem(Item item){
         itemlist.remove(item);
+        updateCurrentWeight();
     }
 
     public void removeSkill(Skill skill){

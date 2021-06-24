@@ -15,15 +15,21 @@ function showCharacters(myjson){
     let charactergrid = document.querySelector("#charactergrid");
 
     for (var i = 0; i < myjson.length; i++){
-        let h2 = document.createElement("h2");
-        h2.innerHTML = (`${myjson[i].naam} the ${myjson[i].race} ${myjson[i].klasse.type}`);
-        h2.className = "character";
-        charactergrid.append(h2);
+        let div = document.createElement("div");
+        div.innerHTML = (`${myjson[i].naam} the ${myjson[i].race} ${myjson[i].klasse.type}`);
+        let naam = myjson[i].naam;
+        div.className = "character";
+        div.onclick = function() {
+            window.sessionStorage.setItem("character", naam);
+            window.location.href = "character.html";
+        }
+        charactergrid.append(div);
     }
 }
 
 function logout(){
-    window.sessionStorage.setItem("JWT", "");
+    window.sessionStorage.removeItem("JWT");
+    window.sessionStorage.removeItem("character");
 }
 
 function addCharacter(event){

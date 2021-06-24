@@ -26,7 +26,7 @@ public class Item implements Serializable {
     }
 
     public String toString(){
-        return naam + ": " + beschrijving + ". with a weight of: " + gewicht;
+        return naam + ": " + beschrijving + ". Weight: " + gewicht;
     }
 
     public boolean equals(Object o){

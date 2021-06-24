@@ -13,6 +13,18 @@ public class Spell implements Serializable {
         this.duration = duration;
     }
 
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
     public String toString(){
         return naam + ": " + beschrijving + ". " + duration;
     }
