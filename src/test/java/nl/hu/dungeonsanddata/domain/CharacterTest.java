@@ -93,7 +93,7 @@ class CharacterTest {
     }
 
     @Test
-    public void testStatModifier(){
+    public void testStatModifier() throws Exception {
         /**
          * Test of de modifier van de stats goed worden ingesteld:
          * Modifier = (Score - 10) / 2
@@ -161,7 +161,7 @@ class CharacterTest {
     }
 
     @Test
-    public void testMaxGewichtWaarde(){
+    public void testMaxGewichtWaarde() throws Exception {
         /**
          * Het maximum gewicht van een character
          * is berekend door de score van zijn
@@ -174,7 +174,7 @@ class CharacterTest {
     }
 
     @Test
-    public void testGewichtItemsMagNietBovenMaxGewicht(){
+    public void testGewichtItemsMagNietBovenMaxGewicht() throws Exception {
         /**
          * Het gecombineerde gewicht van alle items
          * mogen niet boven het maxGewicht van een

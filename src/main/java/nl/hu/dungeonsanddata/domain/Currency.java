@@ -34,6 +34,14 @@ public class Currency implements Serializable {
         }
     }
 
+    public void setAantal(int aantal) throws Exception {
+        if (aantal < 0){
+            throw new Exception("Currencies can't be set below 0!");
+        } else {
+            this.aantal = aantal;
+        }
+    }
+
     public String toString(){
         return aantal + " " + type;
     }

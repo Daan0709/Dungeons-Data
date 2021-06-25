@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adjust Currency</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/favicon.ico"/>
+    <link rel="stylesheet" href="css/adjustcurrency.css" type="text/css"/>
+    <script type="application/javascript" src="js/adjustcurrency.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body onload="loadCurrency()">
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html" onclick="logout()">Log Out</a>
+    <a href="characterselect.html" onclick="removeCharacter()">Characters</a>
+</div>
+<div class="row">
+    <div class="column">
+        <img src="assets/account.webp" id="accountlogo" alt="accountlogo" onclick="openNav()">
+    </div>
+    <div class="column">
+        <img src="assets/dnd.png" id="dndlogo" alt="dndlogo">
+    </div>
+</div>
+<hr>
+<form id="currencyform">
+    <fieldset>
+        <legend class="red">Currency</legend>
+        <div class="formgrid">
+            <label for="platinum">Platinum:</label>
+            <input type="number" id="platinum" name="platinum" min="0">
+            <label for="gold">Gold:</label>
+            <input type="number" id="gold" name="gold" min="0">
+            <label for="silver">Silver:</label>
+            <input type="number" id="silver" name="silver" min="0">
+            <label for="copper">Copper:</label>
+            <input type="number" id="copper" name="copper" min="0">
+        </div>
+        <div class="buttongrid">
+            <input class="button" type="button" value="Cancel" onclick="cancelFunc()">
+            <input class="button" type="button" value="Save Changes" onclick="sendJsonData()">
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>

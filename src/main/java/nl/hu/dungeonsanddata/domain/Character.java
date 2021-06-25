@@ -158,8 +158,21 @@ public class Character implements Serializable {
         updateLevel();
     }
 
-    public void setMaxHitpoints(int hp){
-        maxHitpoints = hp;
+    public void setMaxHitpoints(int hp) throws Exception {
+        if (hp > 0){
+            if (hp >= hitpoints) {
+                maxHitpoints = hp;
+            } else {
+                setHitpoints(hp);
+                maxHitpoints = hp;
+            }
+        } else {
+            throw new Exception("Max hitpoints can't go below 0 or below the current amount of hitpoints!");
+        }
+    }
+
+    public void setHitpoints(int hp){
+        hitpoints = hp;
     }
 
     public void decreaseHitpoints(int aantal){
@@ -214,7 +227,10 @@ public class Character implements Serializable {
         currentWeight = res;
     }
 
-    public void setStat(String type, int score){
+    public void setStat(String type, int score) throws Exception {
+        if (score > 30 || score < -30){
+            throw new Exception("Stats can't go below -30 or above 30!");
+        }
         for (Stat stat : stats){
             if (stat.getType().equals(type)){
                 stat.setScore(score);
@@ -238,6 +254,15 @@ public class Character implements Serializable {
         for (Currency currency : currency){
             if (currency.getType().equals(type)){
                 currency.decreaseAantal(aantal);
+            }
+        }
+        calculateTotalGold();
+    }
+
+    public void setCurrency(String type, int aantal) throws Exception {
+        for (Currency currency : currency) {
+            if (currency.getType().equals(type)) {
+                currency.setAantal(aantal);
             }
         }
         calculateTotalGold();

@@ -1,0 +1,91 @@
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: darkred;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: white;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 7fr 9fr;
+    height: 50px;
+}
+
+#accountlogo:hover {
+    cursor: pointer;
+}
+
+#accountlogo {
+    height: 50px;
+    width: 50px;
+}
+
+#dndlogo {
+    height: 50px;
+    width: 180px;
+}
+
+body {
+    font-size: x-large;
+    font-family: 'Oswald', sans-serif;
+}
+
+.button {
+    font-family: 'Oswald', sans-serif;
+    height: 30px;
+    width: 110px;
+}
+
+fieldset {
+    border: solid black 2px;
+}
+
+.red {
+    color: red;
+}
+
+.formgrid {
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    gap: 1em;
+    text-align: end;
+}
+
+#currencyform {
+    margin: 0 350px;
+}
+
+.buttongrid {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}

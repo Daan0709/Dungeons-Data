@@ -12,6 +12,10 @@ function logout(){
     window.sessionStorage.removeItem("character");
 }
 
+function removeCharacter(){
+    window.sessionStorage.removeItem("character");
+}
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
 }
@@ -66,8 +70,6 @@ function showCharacter(characterJson){
     let gold = document.querySelector("#gold")
     let silver = document.querySelector("#silver")
     let copper = document.querySelector("#copper")
-    let modalcurrenthp = document.querySelector("#currenthp")
-    let modalmaxhp = document.querySelector("#maxhp")
 
     characterName.innerHTML = `${characterJson.naam} the level ${characterJson.level} ${characterJson.race} ${characterJson.klasse.type}`;
     hitpoints.innerHTML = `Hitpoints: ${characterJson.hitpoints}/${characterJson.maxHitpoints}`
@@ -89,34 +91,11 @@ function showCharacter(characterJson){
     gold.innerHTML = characterJson.currency[1].aantal
     silver.innerHTML = characterJson.currency[2].aantal
     copper.innerHTML = characterJson.currency[3].aantal
-    modalcurrenthp.setAttribute("value", characterJson.hitpoints);
-    modalmaxhp.setAttribute("value", characterJson.maxHitpoints);
+
     setWeight(); // Set the weight
     setItems(); // Set all the items
-
-    let skillContainer = document.querySelector("#skills") // Selecting the div that should contain all skills
-    let skillList = characterJson.skills;
-    for (var skill in skillList){
-        let skillDiv = document.createElement("div")
-        skillDiv.innerHTML = `<strong>${skillList[skill].naam}</strong>: ${skillList[skill].beschrijving}`
-        skillContainer.append(skillDiv)
-
-        let remove = document.createElement("input")
-        remove.type = "button"; remove.className = "button"; remove.value = "remove"; remove.onclick=function() {removeSkill(skillList[skill].naam)}
-        skillContainer.append(remove)
-    }
-
-    let spellContainer = document.querySelector("#spells")
-    let spellList = characterJson.spells;
-    for (var spell in spellList){
-        let spellDiv = document.createElement("div");
-        spellDiv.innerHTML = `<strong>${spellList[spell].naam}</strong>: ${spellList[spell].beschrijving}. <strong>Duration</strong>: ${spellList[spell].duration}`
-        spellContainer.append(spellDiv);
-
-        let remove = document.createElement("input")
-        remove.type = "button"; remove.className = "button"; remove.value = "remove"; remove.onclick=function() {removeSpell(spellList[spell].naam)}
-        spellContainer.append(remove);
-    }
+    setSkills(); // Set all the skills
+    setSpells(); // Set all the spells
 
     // Setting the correct amount of spellslots:
     setSpellslots();
@@ -186,16 +165,59 @@ function closeModal(){
     modal.style.display="none";
 }
 
-function removeSkill(name){
+async function removeSkill(name){
+    let charactername = window.sessionStorage.getItem("character");
+    let fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")
+        }
+    }
+
+    await fetch(`restservices/${charactername}/skill/remove/${name}`, fetchOptions)
+        .then(async res => {
+            if (!res.ok){
+                window.alert(`Something went wrong removing the skill! Status: ${res.status}`)
+            } else {
+                await setCharacterJson();  // When successful, update the characterJson.
+                setSkills();                // Overwrite the current list of skills.
+            }
+        })
 }
 
-function removeSpell(name){
+async function removeSpell(name){
+    let charactername = window.sessionStorage.getItem("character");
+    let fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")
+        }
+    }
+
+    await fetch(`restservices/${charactername}/spell/remove/${name}`, fetchOptions)
+        .then(async res => {
+            if (!res.ok){
+                window.alert(`Something went wrong removing the spell! Status: ${res.status}`)
+            } else {
+                await setCharacterJson();  // When successful, update the characterJson.
+                setSpells();                // Overwrite the current list of spells.
+            }
+        })
 }
 
 function adjustStats(){
+    window.location.href="adjuststats.html";
+}
+
+function adjustCurrency(){
+    window.location.href="adjustcurrency.html";
 }
 
 function adjustHp(){
+    let modalcurrenthp = document.querySelector("#currenthp")           // Selecting the input boxes
+    let modalmaxhp = document.querySelector("#maxhp")
+    modalcurrenthp.setAttribute("value", characterJson.hitpoints);  // Updating their values to corresponding values
+    modalmaxhp.setAttribute("value", characterJson.maxHitpoints);
     let modal = document.querySelector(".modal")
     modal.style.display="block";
 }
@@ -268,6 +290,35 @@ function setItems(){
     }
 }
 
+function setSpells(){
+    let spellContainer = document.querySelector("#spells")
+    let spellList = characterJson.spells;
+    spellContainer.innerHTML = "";                  // Clear the container first to stop duplication and remove old spells.
+    for (var spell in spellList){
+        let spellDiv = document.createElement("div");
+        spellDiv.innerHTML = `<strong>${spellList[spell].naam}</strong>: ${spellList[spell].beschrijving}. <strong>Duration</strong>: ${spellList[spell].duration}`
+        spellContainer.append(spellDiv);
+
+        let remove = document.createElement("input")
+        remove.type = "button"; remove.className = "button"; remove.value = "remove"; remove.onclick=function() {removeSpell(spellList[spell].naam)}
+        spellContainer.append(remove);
+    }
+}
+
+function setSkills(){
+    let skillContainer = document.querySelector("#skills") // Selecting the div that should contain all skills
+    let skillList = characterJson.skills;
+    skillContainer.innerHTML = "";                                 // Clear the container to stop duplication and remove old skills.
+    for (var skill in skillList){
+        let skillDiv = document.createElement("div")
+        skillDiv.innerHTML = `<strong>${skillList[skill].naam}</strong>: ${skillList[skill].beschrijving}`
+        skillContainer.append(skillDiv)
+
+        let remove = document.createElement("input")
+        remove.type = "button"; remove.className = "button"; remove.value = "remove"; remove.onclick=function() {removeSkill(skillList[skill].naam)}
+        skillContainer.append(remove)
+    }
+}
 async function clearSpellslots(){
     let charactername = window.sessionStorage.getItem("character");
     let fetchOptions = {
@@ -289,4 +340,32 @@ async function clearSpellslots(){
 function setWeight(){
     let weight = document.querySelector("#weight")
     weight.innerHTML = weight.innerHTML = `Weight: ${characterJson.currentWeight}/${characterJson.maxGewicht}`
+}
+
+async function sendJsonData(event){
+    let charactername = window.sessionStorage.getItem("character")
+    let formData = new FormData(document.querySelector("#hpform"))
+    let jsonRequestBody = {};
+
+    formData.forEach((value, key) => jsonRequestBody[key] = value);
+    let fetchOptions = {
+        method: 'PUT',
+        body: JSON.stringify(jsonRequestBody),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.sessionStorage.getItem("JWT")
+        }
+    }
+
+    await fetch(`restservices/characters/${charactername}/hp`, fetchOptions)
+        .then(async res => {
+            if (!res.ok){
+                window.alert(`Something went wrong adjusting the HP values! Status: ${res.status}`)
+            } else {
+                await setCharacterJson();
+                let hitpoints = document.querySelector("#hitpoints");
+                hitpoints.innerHTML = `Hitpoints: ${characterJson.hitpoints}/${characterJson.maxHitpoints}`;
+                closeModal();
+            }
+        })
 }

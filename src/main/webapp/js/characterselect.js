@@ -1,5 +1,5 @@
 async function loadCharacters(event){
-
+    window.sessionStorage.removeItem("character");
     let fetchOptions = {
         method: 'GET',
         headers: {

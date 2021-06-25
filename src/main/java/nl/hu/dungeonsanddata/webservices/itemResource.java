@@ -3,6 +3,7 @@ package nl.hu.dungeonsanddata.webservices;
 import nl.hu.dungeonsanddata.domain.Account;
 import nl.hu.dungeonsanddata.domain.Character;
 import nl.hu.dungeonsanddata.domain.Item;
+import nl.hu.dungeonsanddata.persistence.PersistenceManager;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -35,12 +36,17 @@ public class itemResource {
             if (character != null){
                 for (Item key : character.getItemlist().keySet()) {
                     if (key.getNaam().equals(itemname)) {
-                        character.removeItem(key);
-                        return Response.ok().build();
-                    } else {
-                        return Response.status(Response.Status.NOT_FOUND).build();
+                        try {
+                            character.removeItem(key);
+                            PersistenceManager.saveAccountsToAzure();
+                            return Response.ok().build();
+                        } catch (Exception e){
+                            e.printStackTrace();
+                            return Response.status(Response.Status.BAD_REQUEST).build();
+                        }
                     }
                 }
+                return Response.status(Response.Status.NOT_FOUND).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
