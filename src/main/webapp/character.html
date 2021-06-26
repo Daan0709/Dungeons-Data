@@ -35,6 +35,9 @@
             <input type="button" value="Clear Spellslots" class="button" id="clearspellslots" onclick="clearSpellslots()">
         </div>
     </div>
+    <div id="deletechardiv">
+        <input type="button" class="button" id="deletechar" value="Delete Character" onclick="deletePopup()">
+    </div>
     <div id="stats">
         <fieldset>
             <legend class="red">Stats</legend>
@@ -103,17 +106,17 @@
     <div class="grid">
         <div class="wrapper" id="itemgrid">
             <div class="red">Items</div>
-            <input type="button" class="button" value="Add Item">
+            <input type="button" class="button" value="Add Item" onclick="addItem()">
             <div id="weight">Weight</div>
             <div class="red">Qt</div>
         </div>
         <div class="wrapper" id="skillgrid">
             <div class="red">Skills</div>
-            <input type="button" class="button" value="Add Skill">
+            <input type="button" class="button" value="Add Skill" onclick="addSkill()">
         </div>
         <div class="wrapper" id="spellgrid">
             <div class="red">Spells</div>
-            <input type="button" class="button" value="Add Spell">
+            <input type="button" class="button" value="Add Spell" onclick="addSpell()">
         </div>
         <div id="items" class="contentbox itemscontentbox">
         </div>
@@ -139,6 +142,37 @@
                     <input type="button" class="button" id="sendform" onclick="sendJsonData()" value="Save Changes"/>
                 </div>
             </form>
+        </div>
+    </div>
+    <div id="spellslotModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>Adjust Spellslots</div>
+                <span class="close" onclick="closeSpellslotModal()">&times;</span>
+            </div>
+            <form id="spellslotsform">
+                <div class="formwrapper">
+                    <label for="amount">Amount:</label>
+                    <input id="amount" name="amount" type="number">
+                </div>
+                <div id="spellsloterror"></div>
+                <div class="formbuttondiv">
+                    <input type="button" class="button" id="closemodalform" onclick="closeSpellslotModal()" value="Close"/>
+                    <input type="button" class="button" id="sendmodalform" onclick="sendSpellslotData()" value="Save Changes"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="deleteCharModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>Are you sure you want to delete this character? This action cannot be undone</div>
+                <span class="close" onclick="closeDeleteCharModal()">&times;</span>
+            </div>
+            <div class="formwrapper">
+                <input class="button" type="button" value="No" onclick="closeDeleteCharModal()">
+                <input class="button" type="button" value="Yes" onclick="deleteCharacter()">
+            </div>
         </div>
     </div>
 </body>

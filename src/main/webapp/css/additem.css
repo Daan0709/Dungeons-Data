@@ -70,3 +70,30 @@ fieldset {
 .red {
     color: red;
 }
+
+.formgrid {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    row-gap: 3px;
+    text-align: end;
+}
+
+#itemform {
+    margin: 0px 400px;
+}
+
+label {
+    margin-right: 3px;
+}
+
+.buttongrid {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 1em;
+}
+
+#errordiv {
+    color: red;
+    text-align: center;
+}

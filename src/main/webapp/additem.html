@@ -26,17 +26,18 @@
     <hr>
     <form id="itemform">
         <fieldset>
-            <legend class="red">Currency</legend>
+            <legend class="red">New Item</legend>
             <div class="formgrid">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4"></textarea>
                 <label for="weight">Weight:</label>
-                <input id="weight" name="weight" type="number" min="0">
+                <input id="weight" name="weight" type="number" min="0" value="0">
                 <label for="amount">Amount:</label>
-                <input id="amount" name="amount" type="number" min="1">
+                <input id="amount" name="amount" type="number" min="1" value="1">
             </div>
+            <div id="errordiv"></div>
             <div class="buttongrid">
                 <input class="button" type="button" value="Cancel" onclick="cancelFunc()">
                 <input class="button" type="button" value="Add Item" onclick="sendJsonData()">

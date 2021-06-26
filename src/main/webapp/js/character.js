@@ -2,8 +2,11 @@ let characterJson = null;
 
 window.onclick = function(event) {
     let modal = document.querySelector(".modal")
+    let spellslotmodal = document.querySelector("#spellslotModal")
     if (event.target == modal) {
         modal.style.display = "none";
+    } else if (event.target == spellslotmodal) {
+        spellslotmodal.style.display = "none";
     }
 }
 
@@ -219,7 +222,7 @@ function adjustHp(){
     modalcurrenthp.setAttribute("value", characterJson.hitpoints);  // Updating their values to corresponding values
     modalmaxhp.setAttribute("value", characterJson.maxHitpoints);
     let modal = document.querySelector(".modal")
-    modal.style.display="block";
+    modal.style.display="block";                                                // Open the hitpoints modal window
 }
 
 async function useSpellslot(){
@@ -366,6 +369,94 @@ async function sendJsonData(event){
                 let hitpoints = document.querySelector("#hitpoints");
                 hitpoints.innerHTML = `Hitpoints: ${characterJson.hitpoints}/${characterJson.maxHitpoints}`;
                 closeModal();
+            }
+        })
+}
+
+function addItem(){
+    window.location.href="additem.html";
+}
+
+function addSpell(){
+    window.location.href="addspell.html";
+}
+
+function addSkill(){
+    window.location.href="addskill.html";
+}
+
+function adjustSpellslots(){
+    let error = document.querySelector("#spellsloterror")
+    error.innerHTML = "";                                                    // Clear the error in case it was still there.
+    let amount = document.querySelector("#amount")
+    amount.setAttribute("value", characterJson.maxSpellslots);   // Set the value of the input to the current amount of spellslots
+    let modal = document.querySelector("#spellslotModal")
+    modal.style.display = "block";                                           // Open the spellslots modal window
+}
+
+function closeSpellslotModal(){
+    let modal = document.querySelector("#spellslotModal")
+    modal.style.display = "none";
+}
+
+async function sendSpellslotData(){
+    let charactername = window.sessionStorage.getItem("character")
+    let formData = new FormData(document.querySelector("#spellslotsform"))
+    let jsonRequestBody = {};
+
+    formData.forEach((value, key) => jsonRequestBody[key] = value);
+    let fetchOptions = {
+        method: 'PUT',
+        body: JSON.stringify(jsonRequestBody),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.sessionStorage.getItem("JWT")
+        }
+    }
+
+    await fetch(`restservices/characters/${charactername}/spellslot`, fetchOptions)
+        .then(async res => {
+            if (!res.ok){
+                if (res.status === 400){
+                    let error = document.querySelector("#spellsloterror");
+                    error.innerHTML = "Amount can't go below 0!";                   // 400 is thrown when a negative number is set, give this warning when that happens.
+                } else {
+                    window.alert(`Something went wrong adjusting the amount of spellslots! Status: ${res.status}`)
+                }
+            } else {
+                await setCharacterJson();
+                setSpellslots();                    // Adjust the amount of spellslots to the new values.
+                closeSpellslotModal();              // Close the modal when successful
+            }
+        })
+}
+
+function deletePopup(){
+    let modal = document.querySelector("#deleteCharModal")
+    modal.style.display = "block";                                           // Open the spellslots modal window
+}
+
+function closeDeleteCharModal(){
+    let modal = document.querySelector("#deleteCharModal")
+    modal.style.display = "none";
+}
+
+async function deleteCharacter(){
+    let charactername = window.sessionStorage.getItem("character")
+
+    let fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + window.sessionStorage.getItem("JWT")
+        }
+    }
+
+    await fetch(`restservices/addcharacter/${charactername}/delete`, fetchOptions)
+        .then(res => {
+            if (!res.ok){
+                window.alert(`Something went wrong deleting the character! Status: ${res.status}`)
+            } else {
+                window.location.href="characterselect.html";
             }
         })
 }

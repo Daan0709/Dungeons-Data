@@ -357,6 +357,17 @@ public class Character implements Serializable {
         }
     }
 
+    public void setItemAmount(Item item, int aantal){
+        if (item.getGewicht() * aantal + currentWeight <= maxGewicht){
+            for (Map.Entry<Item, Integer> entry : itemlist.entrySet()){
+                if (item.equals(entry.getKey())) {
+                    itemlist.put(item, aantal);
+                    updateCurrentWeight();
+                }
+            }
+        }
+    }
+
     public void addItem(Item item){
         if (item.getGewicht() + currentWeight <= maxGewicht) {
             itemlist.put(item, 1);

@@ -54,14 +54,14 @@ async function sendJsonData(){
         }
     }
 
-    await fetch(`restservices/${charactername}/item/new`, fetchOptions)
+    await fetch(`restservices/${charactername}/spell/new`, fetchOptions)
         .then(res => {
             if (!res.ok){
                 if (res.status === 400) {
                     let error = document.querySelector("#errordiv");
                     error.innerHTML = "Name and description required!"
                 } else {
-                    window.alert(`Something went wrong adding the item! Status: ${res.status}`)
+                    window.alert(`Something went wrong adding the spell! Status: ${res.status}`)
                 }
             } else {
                 window.location.href="character.html";

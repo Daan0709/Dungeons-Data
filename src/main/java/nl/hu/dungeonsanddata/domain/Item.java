@@ -7,7 +7,7 @@ public class Item implements Serializable {
     private String beschrijving;
     private double gewicht;
 
-    public Item(String naam, String beschrijving, int gewicht){
+    public Item(String naam, String beschrijving, double gewicht){
         this.naam = naam;
         this.beschrijving = beschrijving;
         this.gewicht = gewicht;

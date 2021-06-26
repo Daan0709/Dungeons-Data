@@ -2,6 +2,7 @@ package nl.hu.dungeonsanddata.webservices;
 
 import nl.hu.dungeonsanddata.domain.Account;
 import nl.hu.dungeonsanddata.domain.Character;
+import nl.hu.dungeonsanddata.persistence.PersistenceManager;
 
 import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
@@ -14,7 +15,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.io.StringReader;
 
 @Path("/addcharacter")
-public class addCharacterResource {
+public class addAndDeleteCharacterResource {
 
     @POST
     @RolesAllowed("user")
@@ -46,6 +47,35 @@ public class addCharacterResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
             return Response.ok(character).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+
+    @DELETE
+    @Path("/{charactername}/delete")
+    @RolesAllowed("user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteCharacter(@Context SecurityContext sc, @PathParam("charactername") String characterName) {
+        Account currentAccount = null;
+        if (sc.getUserPrincipal() instanceof Account){
+            currentAccount = (Account) sc.getUserPrincipal();
+        }
+        if (currentAccount != null) {
+            try {
+                for (Character character : currentAccount.getCharacters()){
+                    if (character.getNaam().equals(characterName)){
+                        currentAccount.removeCharacter(character);
+                        PersistenceManager.saveAccountsToAzure();
+                        return Response.ok().build();
+                    }
+                }
+                return Response.status(Response.Status.NOT_FOUND).build();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

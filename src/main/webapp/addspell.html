@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Spell</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/favicon.ico"/>
+    <link rel="stylesheet" href="css/additem.css" type="text/css"/>
+    <script type="application/javascript" src="js/addspell.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body onload="setCharacterJson()">
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html" onclick="logout()">Log Out</a>
+    <a href="characterselect.html" onclick="removeCharacter()">Characters</a>
+</div>
+<div class="row">
+    <div class="column">
+        <img src="assets/account.webp" id="accountlogo" alt="accountlogo" onclick="openNav()">
+    </div>
+    <div class="column">
+        <img src="assets/dnd.png" id="dndlogo" alt="dndlogo">
+    </div>
+</div>
+<hr>
+<form id="itemform">
+    <fieldset>
+        <legend class="red">New Spell</legend>
+        <div class="formgrid">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+            <label for="duration">Duration:</label>
+            <input id="duration" name="duration" type="text">
+        </div>
+        <div id="errordiv"></div>
+        <div class="buttongrid">
+            <input class="button" type="button" value="Cancel" onclick="cancelFunc()">
+            <input class="button" type="button" value="Add Spell" onclick="sendJsonData()">
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>
+
