@@ -51,6 +51,7 @@ public class PersistenceManager {
         ois.close();
         baos.close();
 
+        Account.setAllAccounts(accounts);
         return accounts;
     }
 

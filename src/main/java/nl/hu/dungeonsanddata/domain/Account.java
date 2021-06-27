@@ -82,6 +82,10 @@ public class Account implements Serializable, Principal {
         this.characters = characters;
     }
 
+    public static void setAllAccounts(ArrayList<Account> accounts){
+        allAccounts = accounts;
+    }
+
     public String toString(){
         return email + " ID: " + accountId;
     }
