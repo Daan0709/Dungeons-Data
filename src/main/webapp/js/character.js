@@ -1,12 +1,15 @@
 let characterJson = null;
 
-window.onclick = function(event) {
+window.onclick = function(event) {                      // Function that closes any modal window that's currently opened when clicked outside of it
     let modal = document.querySelector(".modal")
     let spellslotmodal = document.querySelector("#spellslotModal")
+    let xpmodal = document.querySelector("#xpModal")
     if (event.target == modal) {
         modal.style.display = "none";
     } else if (event.target == spellslotmodal) {
         spellslotmodal.style.display = "none";
+    } else if (event.target == xpmodal) {
+        xpmodal.style.display = "none";
     }
 }
 
@@ -457,6 +460,59 @@ async function deleteCharacter(){
                 window.alert(`Something went wrong deleting the character! Status: ${res.status}`)
             } else {
                 window.location.href="characterselect.html";
+            }
+        })
+}
+
+function openXpModal(){
+    let error = document.querySelector("#xperror")
+    error.innerHTML = "";                                                    // Clear the error in case it was still there.
+    let currentxp = document.querySelector("#currentxp")
+    currentxp.innerHTML = characterJson.experience                           // Set the values of the inputs and labels with corresponding data
+    let setxp = document.querySelector("#setxp")
+    setxp.setAttribute("value", characterJson.experience);       // ^^^^^
+    let modal = document.querySelector("#xpModal")
+    modal.style.display = "block";
+}
+
+function closeXpModal(){
+    let addxp = document.querySelector("#addxp")
+    addxp.value = 0
+    let setxp = document.querySelector("#setxp")
+    setxp.value = characterJson.experience                              // Reset the value of setxp and addxp each time the modal window closes.
+    let characterName = document.querySelector("#character")
+    characterName.innerHTML = `${characterJson.naam} the level ${characterJson.level} ${characterJson.race} ${characterJson.klasse.type}`;
+    let modal = document.querySelector("#xpModal")
+    modal.style.display = "none";
+}
+
+async function sendXpData(){
+    let charactername = window.sessionStorage.getItem("character")
+    let formData = new FormData(document.querySelector("#xpform"))
+    let jsonRequestBody = {};
+
+    formData.forEach((value, key) => jsonRequestBody[key] = value);
+    let fetchOptions = {
+        method: 'PUT',
+        body: JSON.stringify(jsonRequestBody),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.sessionStorage.getItem("JWT")
+        }
+    }
+
+    await fetch(`restservices/characters/${charactername}/xp`, fetchOptions)
+        .then(async res => {
+            if (!res.ok){
+                if (res.status === 400){
+                    let error = document.querySelector("#xperror");
+                    error.innerHTML = "Can't set xp below 0!";                   // 400 is thrown when a negative number is set, give this warning when that happens.
+                } else {
+                    window.alert(`Something went wrong adjusting the amount of spellslots! Status: ${res.status}`)
+                }
+            } else {
+                await setCharacterJson();
+                closeXpModal();              // Close the modal when successful
             }
         })
 }

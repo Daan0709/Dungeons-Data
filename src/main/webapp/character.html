@@ -25,7 +25,7 @@
     </div>
     <hr>
     <div id="topinfo">
-        <div id="character"></div>
+        <div id="character" onclick="openXpModal()"></div>
         <div id="hitpoints"></div>
         <div id="spellslotdiv">
             <input type="button" value="Adjust Spellslots" class="button" id="adjustspellslots" onclick="adjustSpellslots()">
@@ -159,6 +159,29 @@
                 <div class="formbuttondiv">
                     <input type="button" class="button" id="closemodalform" onclick="closeSpellslotModal()" value="Close"/>
                     <input type="button" class="button" id="sendmodalform" onclick="sendSpellslotData()" value="Save Changes"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="xpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>Adjust Experience</div>
+                <span class="close" onclick="closeXpModal()">&times;</span>
+            </div>
+            <form id="xpform">
+                <div class="formwrapper">
+                    <label for="currentxp">Current XP:</label>
+                    <label id="currentxp"></label>
+                    <label for="addxp">Add XP:</label>
+                    <input id="addxp" type="number" name="addxp" value="0" min="0">
+                    <label for="setxp">Set XP:</label>
+                    <input id="setxp" type="number" name="setxp" min="0">
+                </div>
+                <div class="error" id="xperror"></div>
+                <div class="formbuttondiv">
+                    <input type="button" class="button" onclick="closeXpModal()" value="Close"/>
+                    <input type="button" class="button" onclick="sendXpData()" value="Save Changes"/>
                 </div>
             </form>
         </div>

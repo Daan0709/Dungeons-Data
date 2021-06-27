@@ -1,7 +1,7 @@
 let characterJson = null;
 
 function logout(){
-    window.sessionStorage.removeItem("JWT");
+    window.sessionStorage.removeItem("JWT");        // Remove the JWT and character data from the sessionStorage
     window.sessionStorage.removeItem("character");
 }
 

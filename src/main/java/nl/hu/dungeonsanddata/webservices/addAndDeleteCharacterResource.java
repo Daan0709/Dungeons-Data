@@ -42,6 +42,7 @@ public class addAndDeleteCharacterResource {
                 character.setStat("Constitution", Integer.parseInt(object.getString("constitution")));
                 character.setStat("Intelligence", Integer.parseInt(object.getString("intelligence")));
                 currentAccount.addCharacter(character);
+                PersistenceManager.saveAccountsToAzure();
             } catch (Exception e) {
                 e.printStackTrace();
                 return Response.status(Response.Status.BAD_REQUEST).build();

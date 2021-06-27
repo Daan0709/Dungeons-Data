@@ -276,4 +276,48 @@ public class CharactersResource {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    @PUT
+    @RolesAllowed("user")
+    @Path("{name}/xp")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setXp(@Context SecurityContext sc, String jsonBody, @PathParam("name") String name){
+        Account currentAccount = null;
+        if (sc.getUserPrincipal() instanceof Account){
+            currentAccount = (Account) sc.getUserPrincipal();
+        }
+        if (currentAccount != null) {
+            try {
+                Character currentCharacter = null;
+                for (Character character : currentAccount.getCharacters()){
+                    if (character.getNaam().equals(name)){
+                        currentCharacter = character;
+                    }
+                }
+
+                if (currentCharacter != null){
+                    JsonObject object = Json.createReader(new StringReader(jsonBody)).readObject();
+                    int setxp = Integer.parseInt(object.getString("setxp"));
+                    int addxp = Integer.parseInt(object.getString("addxp"));
+                    if (setxp < 0){                                     // If set xp is given a negative value:
+                        throw new Exception("Xp can't be set below 0"); // Throw exception
+                    }
+                    if (currentCharacter.getExperience() != setxp){     // If set xp is given a different value, prioritize that over adding xp.
+                        currentCharacter.setExperience(setxp);
+                        PersistenceManager.saveAccountsToAzure();
+                        return Response.ok().build();
+                    }
+                    currentCharacter.addExperience(addxp);
+                    PersistenceManager.saveAccountsToAzure();
+                    return Response.ok().build();
+                }
+                return Response.status(Response.Status.NOT_FOUND).build();
+            } catch (Exception e){
+                e.printStackTrace();
+                return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            }
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 }

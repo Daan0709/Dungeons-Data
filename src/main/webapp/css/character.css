@@ -40,9 +40,11 @@
 
 #accountlogo:hover {
     cursor: pointer;
+    background-color: lightgray;
 }
 
 #accountlogo {
+    transition: 0.5s;
     height: 50px;
     width: 50px;
 }
@@ -280,8 +282,16 @@ label {
     color: black;
 }
 
+.error {
+    color: red;
+    text-align: center;
+}
 
 #spellsloterror {
     text-align: center;
     color: white;
+}
+
+#character:hover {
+    cursor: pointer;
 }

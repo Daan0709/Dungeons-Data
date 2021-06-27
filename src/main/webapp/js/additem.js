@@ -1,7 +1,7 @@
 let characterJson = null;
 
 function logout(){
-    window.sessionStorage.removeItem("JWT");
+    window.sessionStorage.removeItem("JWT");            // Remove both the JWT and the character data from the sessionStorage
     window.sessionStorage.removeItem("character");
 }
 
@@ -22,16 +22,16 @@ function cancelFunc(){
 }
 
 async function setCharacterJson(){
-    let charactername = window.sessionStorage.getItem("character");
+    let charactername = window.sessionStorage.getItem("character");     // Get the charactername from the sessionstorage, will be used to fetch properly
 
-    let fetchOptions = {
+    let fetchOptions = {                                                     // Declare the fetch options to be used.
         method: 'GET',
         headers: {
-            "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")
+            "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")   // Pass the JWT to gain access
         }
     }
 
-    await fetch(`restservices/characters/${charactername}`, fetchOptions)
+    await fetch(`restservices/characters/${charactername}`, fetchOptions)    // fetch to the CharactersResource
         .then(res => res.json())
         .then(json => {
             characterJson = json;
@@ -58,8 +58,8 @@ async function sendJsonData(){
         .then(res => {
             if (!res.ok){
                 if (res.status === 400) {
-                    let error = document.querySelector("#errordiv");
-                    error.innerHTML = "Name and description required!"
+                    let error = document.querySelector("#errordiv");            // Error code 400 is thrown when name or description are not filled in:
+                    error.innerHTML = "Name and description required!"                  // Display the error to the user.
                 } else {
                     window.alert(`Something went wrong adding the item! Status: ${res.status}`)
                 }
