@@ -25,18 +25,18 @@
     </div>
     <hr>
     <div id="topinfo">
-        <div id="character" onclick="openXpModal()"></div>
+        <div>
+            <div id="character" onclick="openXpModal()"></div>
+            <input type="button" class="button" id="deletechar" value="Delete Character" onclick="deletePopup()">
+        </div>
         <div id="hitpoints"></div>
-        <div id="spellslotdiv">
+        <div class="spellslotdiv">
             <input type="button" value="Adjust Spellslots" class="button" id="adjustspellslots" onclick="adjustSpellslots()">
-            <div id="spellslots">
-                <div>Spellslots:</div>
+            <div class="spellslots">
+                <div class="spellslotcontainer">Spellslots:</div>
             </div>
             <input type="button" value="Clear Spellslots" class="button" id="clearspellslots" onclick="clearSpellslots()">
         </div>
-    </div>
-    <div id="deletechardiv">
-        <input type="button" class="button" id="deletechar" value="Delete Character" onclick="deletePopup()">
     </div>
     <div id="stats">
         <fieldset>
@@ -152,6 +152,18 @@
             </div>
             <form id="spellslotsform">
                 <div class="formwrapper">
+                    <label for="spellslotlevel">Level of spellslot:</label>
+                    <select id="spellslotlevel" name="spellslotlevel">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
                     <label for="amount">Amount:</label>
                     <input id="amount" name="amount" type="number">
                 </div>

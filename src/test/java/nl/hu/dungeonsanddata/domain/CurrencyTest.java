@@ -13,7 +13,7 @@ class CurrencyTest {
 
     @BeforeEach
     public void init() throws WrongTypeException {
-        c1 = new Character("John", "High Elf", 300, 17, "Ranger", 3);
+        c1 = new Character("John", "High Elf", 300, 17, "Ranger");
     }
 
     @Test

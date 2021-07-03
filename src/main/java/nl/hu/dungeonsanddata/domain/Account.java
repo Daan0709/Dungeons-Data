@@ -22,15 +22,14 @@ public class Account implements Serializable, Principal {
         this.accountId = accountAmount;
         this.role = "user";
         allAccounts.add(this);
-        PersistenceManager.saveAccountsToAzure();
     }
 
     public String getRole() {
         return role;
     }
 
-    public static boolean isValid(String email, String wachtwoord) throws Exception {
-        for (Account account : PersistenceManager.loadAccountsFromAzure()){
+    public static boolean isValid(String email, String wachtwoord) {
+        for (Account account : allAccounts){
             if (account.email.equals(email) && account.wachtwoord.equals(wachtwoord)){
                 return true;
             }

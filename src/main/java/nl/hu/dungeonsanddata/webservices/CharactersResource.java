@@ -66,47 +66,6 @@ public class CharactersResource {
 
     @PUT
     @RolesAllowed("user")
-    @Path("/{name}/{spellslotfunction}")
-    public Response updateSpellslot(@Context SecurityContext sc, @PathParam("name") String name, @PathParam("spellslotfunction") String function){
-        Account currentAccount = null;
-        if (sc.getUserPrincipal() instanceof Account){
-            currentAccount = (Account) sc.getUserPrincipal();
-        }
-        try {
-            if (currentAccount != null) {
-                Character character = null;
-                for (Character c : currentAccount.getCharacters()) {
-                    if (c.getNaam().equals(name)) {
-                        character = c;
-                    }
-                }
-
-                if (character != null) {
-                    if (function.equals("clearspellslots")) {
-                        character.resetSpellslots();
-                        PersistenceManager.saveAccountsToAzure();
-                        return Response.ok().build();
-                    } else if (function.equals("usespellslot")) {
-                        character.useSpellslot();
-                        PersistenceManager.saveAccountsToAzure();
-                        return Response.ok().build();
-                    } else {
-                        return Response.status(Response.Status.BAD_REQUEST).build();
-                    }
-                } else {
-                    return Response.status(Response.Status.NOT_FOUND).build();
-                }
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-    }
-
-    @PUT
-    @RolesAllowed("user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{name}/hp")
@@ -133,49 +92,6 @@ public class CharactersResource {
                     }
                     currentCharacter.setHitpoints(currentHp);
                     currentCharacter.setMaxHitpoints(maxHp);
-                    PersistenceManager.saveAccountsToAzure();
-                    return Response.ok().build();
-                }
-
-                return Response.status(Response.Status.NOT_FOUND).build();
-            } catch (Exception e){
-                e.printStackTrace();
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
-    @PUT
-    @RolesAllowed("user")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{name}/spellslot")
-    public Response adjustSpellslots(@Context SecurityContext sc, String jsonBody, @PathParam("name") String name){
-        Account currentAccount = null;
-        if (sc.getUserPrincipal() instanceof Account){
-            currentAccount = (Account) sc.getUserPrincipal();
-        }
-        if (currentAccount != null) {
-            try {
-                Character currentCharacter = null;
-                for (Character character : currentAccount.getCharacters()){
-                    if (character.getNaam().equals(name)){
-                        currentCharacter = character;
-                    }
-                }
-
-                if (currentCharacter != null){
-                    JsonObject object = Json.createReader(new StringReader(jsonBody)).readObject();
-                    int amount = Integer.parseInt(object.getString("amount"));
-                    int usedspellslots = currentCharacter.getVerbruikteSpellslots();
-                    if (amount < 0){
-                        throw new Exception("Amount of spellslots can't go below 0");
-                    }
-                    if (amount < usedspellslots){
-                        currentCharacter.resetSpellslots();
-                    }
-                    currentCharacter.setMaxSpellslots(amount);
                     PersistenceManager.saveAccountsToAzure();
                     return Response.ok().build();
                 }

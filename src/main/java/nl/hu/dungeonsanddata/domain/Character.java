@@ -12,9 +12,8 @@ public class Character implements Serializable {
     private int maxHitpoints;
     private double currentWeight;
     private int maxGewicht;
-    private int maxSpellslots;
-    private int verbruikteSpellslots;
     private Class klasse;
+    private ArrayList<Spellslot> spellslots = new ArrayList<>();
     private ArrayList<Stat> stats = new ArrayList<>();
     private ArrayList<Skill> skills = new ArrayList<>();
     private HashMap<Item, Integer> itemlist = new HashMap<>();
@@ -22,14 +21,12 @@ public class Character implements Serializable {
     private double totalCurrency;
     private ArrayList<Spell> spells = new ArrayList<>();
 
-    public Character(String naam, String race, int experience, int maxHitpoints, String klasse, int maxSpellslots) throws WrongTypeException {
+    public Character(String naam, String race, int experience, int maxHitpoints, String klasse) throws WrongTypeException {
         this.naam = naam;
         this.race = race;
         this.experience = experience;
         this.hitpoints = maxHitpoints;
         this.maxHitpoints = maxHitpoints;
-        this.maxSpellslots = maxSpellslots;
-        this.verbruikteSpellslots = 0;
         setKlasse(klasse);
         updateLevel();
 
@@ -45,8 +42,8 @@ public class Character implements Serializable {
         currency.add(new Currency("Copper"));
         calculateTotalGold();
     }
-    public Character(String naam, String race, int maxHitpoints, String klasse, int maxSpellslots) throws WrongTypeException {
-        this(naam, race, 0, maxHitpoints, klasse, maxSpellslots);
+    public Character(String naam, String race, int maxHitpoints, String klasse) throws WrongTypeException {
+        this(naam, race, 0, maxHitpoints, klasse);
     }
 
     public String getNaam() {
@@ -61,12 +58,8 @@ public class Character implements Serializable {
         return experience;
     }
 
-    public int getMaxSpellslots(){
-        return maxSpellslots;
-    }
-
-    public int getVerbruikteSpellslots(){
-        return verbruikteSpellslots;
+    public ArrayList<Spellslot> getSpellslots(){
+        return spellslots;
     }
 
     public int getHitpoints() {
@@ -189,22 +182,6 @@ public class Character implements Serializable {
         } else {
             hitpoints = maxHitpoints;
         }
-    }
-
-    public void setMaxSpellslots(int aantal){
-        if (aantal >= 0){
-            maxSpellslots = aantal;
-        }
-    }
-
-    public void useSpellslot(){
-        if (verbruikteSpellslots + 1 <= maxSpellslots){
-            verbruikteSpellslots += 1;
-        }
-    }
-
-    public void resetSpellslots(){
-        verbruikteSpellslots = 0;
     }
 
     public void updateMaxGewicht(){
@@ -333,6 +310,34 @@ public class Character implements Serializable {
         spells.add(spell);
     }
 
+    public void addSpellslot(Spellslot spellslot){
+        if (spellslots.contains(spellslot)){
+            Spellslot otherSpellslot = spellslots.get(spellslots.indexOf(spellslot));
+            otherSpellslot.setMaxAmount(spellslot.getMaxAmount());
+            return;
+        }
+        spellslots.add(spellslot);
+    }
+
+    public void removeSpellslot(Spellslot spellslot){
+        spellslots.remove(spellslot);
+    }
+
+    public Spellslot getSpecificSpellslot(int level){
+        for (Spellslot spellslot : spellslots){
+            if (spellslot.getLevel() == level){
+                return spellslot;
+            }
+        }
+        return null;
+    }
+
+    public void resetSpellslots(){
+        for (Spellslot spellslot : spellslots){
+            spellslot.resetSpellslots();
+        }
+    }
+
     public void increaseItemAmount(Item item, int aantal){
         if (item.getGewicht() * aantal + currentWeight <= maxGewicht){
             for (Map.Entry<Item, Integer> entry : itemlist.entrySet()){
@@ -401,11 +406,11 @@ public class Character implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Character character = (Character) o;
-        return getExperience() == character.getExperience() && getLevel() == character.getLevel() && getHitpoints() == character.getHitpoints() && getMaxHitpoints() == character.getMaxHitpoints() && Double.compare(character.getCurrentWeight(), getCurrentWeight()) == 0 && getMaxGewicht() == character.getMaxGewicht() && getMaxSpellslots() == character.getMaxSpellslots() && getVerbruikteSpellslots() == character.getVerbruikteSpellslots() && getNaam().equals(character.getNaam()) && getRace().equals(character.getRace()) && getKlasse().equals(character.getKlasse()) && getStats().equals(character.getStats()) && getSkills().equals(character.getSkills()) && getItemlist().equals(character.getItemlist()) && getCurrency().equals(character.getCurrency()) && getSpells().equals(character.getSpells());
+        return getExperience() == character.getExperience() && getLevel() == character.getLevel() && getHitpoints() == character.getHitpoints() && getMaxHitpoints() == character.getMaxHitpoints() && Double.compare(character.getCurrentWeight(), getCurrentWeight()) == 0 && getMaxGewicht() == character.getMaxGewicht() && getNaam().equals(character.getNaam()) && getRace().equals(character.getRace()) && getKlasse().equals(character.getKlasse()) && getStats().equals(character.getStats()) && getSkills().equals(character.getSkills()) && getItemlist().equals(character.getItemlist()) && getCurrency().equals(character.getCurrency()) && getSpells().equals(character.getSpells());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNaam(), getRace(), getExperience(), getLevel(), getHitpoints(), getMaxHitpoints(), getCurrentWeight(), getMaxGewicht(), getMaxSpellslots(), getVerbruikteSpellslots(), getKlasse(), getStats(), getSkills(), getItemlist(), getCurrency(), getSpells());
+        return Objects.hash(getNaam(), getRace(), getExperience(), getLevel(), getHitpoints(), getMaxHitpoints(), getCurrentWeight(), getMaxGewicht(), getKlasse(), getStats(), getSkills(), getItemlist(), getCurrency(), getSpells());
     }
 }
