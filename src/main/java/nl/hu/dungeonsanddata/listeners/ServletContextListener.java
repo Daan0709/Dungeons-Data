@@ -15,15 +15,12 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
         try {
             Account a1 = new Account("test@test.nl", "test");
             Character c1 = new Character("Bardin", "Dwarf", 2700, 22, "Ranger");
-            Spellslot ss1 = new Spellslot(1, 4);
-            Spellslot ss2 = new Spellslot(2, 2);
-            Spellslot ss3 = new Spellslot(3, 1);
-            ss1.useSpellslot();
-            ss2.useSpellslot();
-            ss2.useSpellslot();
-            c1.addSpellslot(ss1);
-            c1.addSpellslot(ss2);
-            c1.addSpellslot(ss3);
+            c1.getSpecificSpellslot(1).setMaxAmount(4);
+            c1.getSpecificSpellslot(2).setMaxAmount(2);
+            c1.getSpecificSpellslot(3).setMaxAmount(1);
+            c1.getSpecificSpellslot(1).useSpellslot();
+            c1.getSpecificSpellslot(1).useSpellslot();
+            c1.getSpecificSpellslot(2).useSpellslot();
             a1.addCharacter(c1);
         } catch (Exception e) {
             e.printStackTrace();

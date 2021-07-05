@@ -275,10 +275,13 @@ function setSpellslots(){
         var spellslot = spellslots[key]
         let level = spellslot["level"];
         let maxAmount = spellslot["maxAmount"];
+        if (maxAmount === 0){
+            continue;
+        }
         let usedAmount = spellslot["usedAmount"];
         let levelLabel = document.createElement("div");
         levelLabel.innerText = "lvl " + level + ": ";
-        levelLabel.className = "levellabel";                    // Give it a classname to remove it whenever setSpellSlots is called.
+        levelLabel.className = "levellabel";                    // Give it a classname to be able to remove it whenever setSpellSlots is called.
         spellslotRow.append(levelLabel);
         let spellslotsBubbles = document.createElement("div");
         spellslotsBubbles.className = "spellslotsbubbles";
@@ -453,7 +456,7 @@ async function sendSpellslotData(){
         }
     }
 
-    await fetch(`restservices/characters/${charactername}/spellslot`, fetchOptions)
+    await fetch(`restservices/spellslot/${charactername}/spellslot`, fetchOptions)
         .then(async res => {
             if (!res.ok){
                 if (res.status === 400){

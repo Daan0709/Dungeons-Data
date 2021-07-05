@@ -28,6 +28,50 @@
         <div>
             <div id="character" onclick="openXpModal()"></div>
             <input type="button" class="button" id="deletechar" value="Delete Character" onclick="deletePopup()">
+            <div id="stats">
+                <fieldset>
+                    <legend class="red">Stats</legend>
+                    <input type="button" class="button" value="Adjust Stats" onclick="adjustStats()">
+                    <div id="statscontainer">
+                        <div class="stat">Strength
+                            <div>
+                                <div id="strength"></div>
+                                <div class="modifier" id="strengthmodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Dexterity
+                            <div>
+                                <div id="dexterity"></div>
+                                <div class="modifier" id="dexteritymodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Constitution
+                            <div>
+                                <div id="constitution"></div>
+                                <div class="modifier" id="constitutionmodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Intelligence
+                            <div>
+                                <div id="intelligence"></div>
+                                <div class="modifier" id="intelligencemodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Wisdom
+                            <div>
+                                <div id="wisdom"></div>
+                                <div class="modifier" id="wisdommodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Charisma
+                            <div>
+                                <div id="charisma"></div>
+                                <div class="modifier" id="charismamodifier"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
         <div id="hitpoints"></div>
         <div class="spellslotdiv">
@@ -37,50 +81,6 @@
             </div>
             <input type="button" value="Clear Spellslots" class="button" id="clearspellslots" onclick="clearSpellslots()">
         </div>
-    </div>
-    <div id="stats">
-        <fieldset>
-            <legend class="red">Stats</legend>
-            <input type="button" class="button" value="Adjust Stats" onclick="adjustStats()">
-            <div id="statscontainer">
-                <div class="stat">Strength
-                    <div>
-                        <div id="strength"></div>
-                        <div class="modifier" id="strengthmodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Dexterity
-                    <div>
-                        <div id="dexterity"></div>
-                        <div class="modifier" id="dexteritymodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Constitution
-                    <div>
-                        <div id="constitution"></div>
-                        <div class="modifier" id="constitutionmodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Intelligence
-                    <div>
-                        <div id="intelligence"></div>
-                        <div class="modifier" id="intelligencemodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Wisdom
-                    <div>
-                        <div id="wisdom"></div>
-                        <div class="modifier" id="wisdommodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Charisma
-                    <div>
-                        <div id="charisma"></div>
-                        <div class="modifier" id="charismamodifier"></div>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
     </div>
     <div id="currencies">
         <fieldset id="currencyfieldset">

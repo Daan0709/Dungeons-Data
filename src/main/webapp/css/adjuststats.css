@@ -47,6 +47,7 @@
     transition: 0.5s;
     height: 50px;
     width: 50px;
+    border-radius: 50%;
 }
 
 #dndlogo {

@@ -41,6 +41,11 @@ public class Character implements Serializable {
         currency.add(new Currency("Silver"));
         currency.add(new Currency("Copper"));
         calculateTotalGold();
+
+        for (int i = 1; 9 >= i; i++){
+            Spellslot spellslot = new Spellslot(i, 0);
+            spellslots.add(spellslot);
+        }
     }
     public Character(String naam, String race, int maxHitpoints, String klasse) throws WrongTypeException {
         this(naam, race, 0, maxHitpoints, klasse);

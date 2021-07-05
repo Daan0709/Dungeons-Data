@@ -113,46 +113,44 @@ public class spellslotResource {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-//    @PUT
-//    @RolesAllowed("user")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("{name}/{spellslotlevel}/spellslot")
-//    public Response adjustSpellslots(@Context SecurityContext sc, String jsonBody, @PathParam("name") String name, @PathParam("spellslotlevel") int spellslotlevel){
-//        Account currentAccount = null;
-//        if (sc.getUserPrincipal() instanceof Account){
-//            currentAccount = (Account) sc.getUserPrincipal();
-//        }
-//        if (currentAccount != null) {
-//            try {
-//                Character currentCharacter = null;
-//                for (Character character : currentAccount.getCharacters()){
-//                    if (character.getNaam().equals(name)){
-//                        currentCharacter = character;
-//                    }
-//                }
-//
-//                if (currentCharacter != null){
-//                    JsonObject object = Json.createReader(new StringReader(jsonBody)).readObject();
-//                    int amount = Integer.parseInt(object.getString("amount"));
-//                    int usedspellslots = currentCharacter.getVerbruikteSpellslots();
-//                    if (amount < 0){
-//                        throw new Exception("Amount of spellslots can't go below 0");
-//                    }
-//                    if (amount < usedspellslots){
-//                        currentCharacter.resetSpellslots();
-//                    }
-//                    currentCharacter.setMaxSpellslots(amount);
-//                    PersistenceManager.saveAccountsToAzure();
-//                    return Response.ok().build();
-//                }
-//
-//                return Response.status(Response.Status.NOT_FOUND).build();
-//            } catch (Exception e){
-//                e.printStackTrace();
-//                return Response.status(Response.Status.BAD_REQUEST).build();
-//            }
-//        }
-//        return Response.status(Response.Status.NOT_FOUND).build();
-//    }
+    @PUT
+    @RolesAllowed("user")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{name}/spellslot")
+    public Response adjustSpellslots(@Context SecurityContext sc, String jsonBody, @PathParam("name") String name){
+        Account currentAccount = null;
+        if (sc.getUserPrincipal() instanceof Account){
+            currentAccount = (Account) sc.getUserPrincipal();
+        }
+        if (currentAccount != null) {
+            try {
+                Character currentCharacter = null;
+                for (Character character : currentAccount.getCharacters()){
+                    if (character.getNaam().equals(name)){
+                        currentCharacter = character;
+                    }
+                }
+
+                if (currentCharacter != null){
+                    JsonObject object = Json.createReader(new StringReader(jsonBody)).readObject();
+                    int amount = Integer.parseInt(object.getString("amount"));
+                    int spellslotlevel = Integer.parseInt(object.getString("spellslotlevel"));
+                    if (amount < 0){
+                        throw new Exception("Amount of spellslots can't go below 0");
+                    }
+                    Spellslot spellslot = new Spellslot(spellslotlevel, amount);
+                    currentCharacter.addSpellslot(spellslot);
+                    PersistenceManager.saveAccountsToAzure();
+                    return Response.ok().build();
+                }
+
+                return Response.status(Response.Status.NOT_FOUND).build();
+            } catch (Exception e){
+                e.printStackTrace();
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 }

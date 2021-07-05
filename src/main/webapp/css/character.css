@@ -47,6 +47,7 @@
     transition: 0.5s;
     height: 50px;
     width: 50px;
+    border-radius: 50%;
 }
 
 #dndlogo {
@@ -56,6 +57,10 @@
 
 body {
     font-family: 'Oswald', sans-serif;
+    background-image: url("../assets/dragon.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .button {
@@ -75,9 +80,11 @@ body {
     transition: 0.5s;
     padding: 5px;
     min-width: max-content;
+    max-width: max-content;
 }
 
 #character:hover {
+    cursor: pointer;
     background-color: darkred;
 }
 
@@ -103,8 +110,10 @@ body {
 .spellslots {
     display: flex;
     border: solid black 2px;
-    border-radius: 15%;
+    border-radius: 15px;
     padding: 5px;
+    background-image: url("../assets/wood-texture.jpg");
+    background-size: 150%;
 }
 
 .spellslotcontainer {
@@ -123,16 +132,30 @@ body {
 }
 
 .spellslot {
+    background-color: white;
     position: relative;
     transform: translateY(4px);
     border-radius: 50%;
     border: solid black 2px;
     width: 30px;
     height: 30px;
+    transition: 0.5s;
+}
+
+.spellslot:hover {
+    background-color: lightgray;
 }
 
 .used {
     background-color: red;
+}
+
+.used:hover {
+    background-color: lightgray;
+}
+
+#stats {
+    width: 175%;
 }
 
 #statscontainer {
@@ -149,6 +172,7 @@ body {
     height: 50px;
     width: 120px;
     border: black 2px solid;
+    background-color: white;
 }
 
 .modifier {
@@ -166,6 +190,8 @@ body {
 fieldset {
     position: relative;
     border: black 2px solid;
+    border-radius: 15px;
+    background-image: url("../assets/wood-texture.jpg");
 }
 
 fieldset > input {
@@ -181,7 +207,7 @@ fieldset > input {
 }
 
 #currencies {
-    margin: 0em 30em;
+    margin-right: 27%;
 }
 
 .currency > div {
@@ -190,6 +216,7 @@ fieldset > input {
     width: 120px;
     text-align: center;
     font-size: xx-large;
+    background-color: white;
 }
 
 #totalcurrency {
@@ -329,8 +356,4 @@ label {
 #spellsloterror {
     text-align: center;
     color: white;
-}
-
-#character:hover {
-    cursor: pointer;
 }
