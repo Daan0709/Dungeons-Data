@@ -66,6 +66,19 @@ body {
 .button {
     font-family: 'Oswald', sans-serif;
     height: 30px;
+    min-width: 75px;
+    max-width: fit-content;
+    color: white;
+    background-color: black;
+    border: solid black 2px;
+    transition: 0.5s;
+    border-radius: 7px;
+}
+
+.button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
 
 #topinfo {
@@ -81,39 +94,44 @@ body {
     padding: 5px;
     min-width: max-content;
     max-width: max-content;
+    background-color: white;
+    border-radius: 7px;
 }
 
 #character:hover {
     cursor: pointer;
-    background-color: darkred;
+    background-color: black;
+    color: white;
 }
 
 #hitpoints {
     border: solid black 2px;
-    transition: 0.5s;
+    transition: background-color 0.5s;
     padding: 5px;
+    background-color: white;
+    min-width: max-content;
+    transform: translateX(-135%);
+    border-radius: 7px;
 }
 
 #hitpoints:hover {
-    background-color: darkred;
+    background-color: black;
+    color: white;
 }
 
 .spellslotdiv {
     display: flex;
-    align-items: flex-start;
-}
-
-.spellslotdiv > * {
-    margin-left: 1em;
+    margin-right: 5%;
 }
 
 .spellslots {
     display: flex;
+    flex-direction: column;
     border: solid black 2px;
     border-radius: 15px;
     padding: 5px;
-    background-image: url("../assets/wood-texture.jpg");
-    background-size: 150%;
+    background-color: #DBCDCC;
+    gap: 5px;
 }
 
 .spellslotcontainer {
@@ -146,22 +164,57 @@ body {
     background-color: lightgray;
 }
 
+.flex-align-center {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-align-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.gap {
+    gap: 5px;
+}
 .used {
-    background-color: red;
+    background-color: #B6332E;
 }
 
 .used:hover {
     background-color: lightgray;
 }
 
+@media screen and (max-width: 1725px) {
+    #hitpoints {
+        transform: none;
+    }
+
+    .spellslotdiv {
+        margin-right: 0%;
+    }
+}
+
+.topinfocolumn {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#deletechar {
+    max-width: 125px;
+}
+
 #stats {
-    width: 175%;
+    flex: 1 1 100%;
 }
 
 #statscontainer {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    transition: 3s;
 }
 
 .stat > div {
@@ -187,11 +240,13 @@ body {
     border: black 2px solid;
     background-color: white;
 }
+
 fieldset {
     position: relative;
     border: black 2px solid;
     border-radius: 15px;
-    background-image: url("../assets/wood-texture.jpg");
+    background-color: #DBCDCC;
+    transition: 3s;
 }
 
 fieldset > input {
@@ -207,7 +262,7 @@ fieldset > input {
 }
 
 #currencies {
-    margin-right: 27%;
+    flex: 1 1 100%;
 }
 
 .currency > div {
@@ -224,7 +279,11 @@ fieldset > input {
 }
 
 .red {
-    color: red;
+    color: #B6332E;
+    font-size: x-large;
+}
+
+.other {
     font-size: x-large;
 }
 
@@ -244,6 +303,7 @@ fieldset > input {
 .contentbox.bigspace {
     display: grid;
     grid-template-columns: 8fr 1fr;
+    background-color: #DBCDCC;
 }
 
 .contentbox {
@@ -252,6 +312,7 @@ fieldset > input {
     border: solid black 2px;
     padding: 5px;
     row-gap: 30px;
+    background-color: #DBCDCC;
 }
 
 .buttondiv {

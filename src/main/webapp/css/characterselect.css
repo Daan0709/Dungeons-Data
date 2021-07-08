@@ -40,7 +40,7 @@
 
 h1 {
     text-align: center;
-    color: red;
+    color: #B6332E;
 }
 
 #accountlogo:hover {
@@ -64,7 +64,7 @@ h1 {
     display: grid;
     grid-template-columns: 1fr;
     border: black solid 2px;
-    background-color: beige;
+    background-color: #DBCDCC;
     border-radius: 15px;
 }
 
@@ -83,6 +83,17 @@ h1 {
     height: 40px;
     font-family: 'Oswald', sans-serif;
     font-size: large;
+    color: white;
+    background-color: black;
+    transition: 0.5s;
+    border: solid black 2px;
+    border-radius: 7px;
+}
+
+#addcharacter:hover {
+    cursor: pointer;
+    color: black;
+    background-color: white;
 }
 
 body {

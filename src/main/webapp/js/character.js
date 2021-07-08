@@ -327,8 +327,8 @@ function setItems(){
         plus.type = "button"; plus.value="+"; plus.onclick=function() {increaseItem(itemName)};
         minus.type = "button"; minus.value="-"; minus.onclick=function() {decreaseItem(itemName)};
         remove.type = "button"; remove.className = "button"; remove.value = "remove"; remove.onclick=function() {removeItem(itemName)}
-        plusminus.append(plus)
         plusminus.append(minus)
+        plusminus.append(plus)
         buttondiv.append(quantity)
         buttondiv.append(plusminus)
         buttondiv.append(remove)
