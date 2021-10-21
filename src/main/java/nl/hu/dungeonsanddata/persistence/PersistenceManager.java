@@ -14,7 +14,7 @@ import nl.hu.dungeonsanddata.domain.Character;
 
 public class PersistenceManager {
     private final static String ENDPOINT = "https://dungeonsanddata.blob.core.windows.net/";
-    private final static String SASTOKEN = "?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-09-03T20:16:38Z&st=2021-07-03T12:16:38Z&spr=https&sig=c9nZGDO1BRay%2FshkmOFLaN0Em9fqvZRfq5Wy9Fgjfy8%3D";
+    private final static String SASTOKEN = "?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2022-10-21T19:13:41Z&st=2021-10-21T11:13:41Z&spr=https&sig=YwVwThXBkh9HKzHi8RkivA%2Br9OT8BLenuVtmQPCeH8U%3D";
     private final static String CONTAINER = "accountscontainer";
 
     private static BlobContainerClient blobContainer = new BlobContainerClientBuilder()
