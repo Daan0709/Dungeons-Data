@@ -228,7 +228,7 @@ function adjustHp(){
     modal.style.display="block";                                                // Open the hitpoints modal window
 }
 
-async function useSpellslot(){
+async function removeSpellslot(level){
     let charactername = window.sessionStorage.getItem("character");
     let fetchOptions = {
         method: 'PUT',
@@ -236,7 +236,7 @@ async function useSpellslot(){
             "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")
         }
     }
-    await fetch(`restservices/characters/${charactername}/usespellslot`, fetchOptions)  // Webservice for using 1 spellslot.
+    await fetch(`restservices/spellslot/${charactername}/${level}/remove`, fetchOptions)  // Webservice for using 1 spellslot.
         .then(async res => {
             if (!res.ok){
                 window.alert(`Something went wrong using the spellslot! Status: ${res.status}`);
@@ -246,22 +246,63 @@ async function useSpellslot(){
         })
 }
 
-function setSpellslots(){
-    document.querySelectorAll('.spellslot').forEach(e => e.remove());
-    let maxSpellslots = characterJson.maxSpellslots;
-    let usedSpellslots = characterJson.verbruikteSpellslots;
-    let spellslotDiv = document.querySelector("#spellslots");
-    for (var i = 0; maxSpellslots > i; i++){
-        let spellslot = document.createElement("div");
-        spellslot.className = "spellslot";
-        spellslot.id=i;
-        spellslot.onclick=function(){useSpellslot()}
-        spellslotDiv.append(spellslot);
+async function useSpellslot(level){
+    let charactername = window.sessionStorage.getItem("character");
+    let fetchOptions = {
+        method: 'PUT',
+        headers: {
+            "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")
+        }
     }
+    await fetch(`restservices/spellslot/${charactername}/${level}/use`, fetchOptions)  // Webservice for using 1 spellslot.
+        .then(async res => {
+            if (!res.ok){
+                window.alert(`Something went wrong removing the spellslot! Status: ${res.status}`);
+            }
+            await setCharacterJson();     // When successful, set characterJson to the updated one.
+            setSpellslots();              // Overwrite the current spellslots.
+        })
+}
 
-    for (var i = 0; usedSpellslots > i; i++){
-        let spellslot = document.getElementById(i)
-        spellslot.className += " used"
+function setSpellslots(){
+    document.querySelectorAll('.spellslotrow').forEach(e => e.remove());  // Remove all spellslots first to prevent duplication
+    let spellslotContainer = document.querySelector(".spellslotcontainer")
+    let spellslots = characterJson.spellslots;
+    for (var key in spellslots){
+        let spellslotRow = document.createElement("div");
+        spellslotRow.className = "spellslotrow"
+        spellslotContainer.append(spellslotRow)
+        var spellslot = spellslots[key]
+        let level = spellslot["level"];
+        let maxAmount = spellslot["maxAmount"];
+        if (maxAmount === 0){
+            continue;
+        }
+        let usedAmount = spellslot["usedAmount"];
+        let levelLabel = document.createElement("div");
+        levelLabel.innerText = "lvl " + level + ": ";
+        levelLabel.className = "levellabel";                    // Give it a classname to be able to remove it whenever setSpellSlots is called.
+        spellslotRow.append(levelLabel);
+        let spellslotsBubbles = document.createElement("div");
+        spellslotsBubbles.className = "spellslotsbubbles";
+        spellslotRow.append(spellslotsBubbles);
+        for (var j = 0; maxAmount > j; j++) {
+            let spellslot = document.createElement("div");
+            spellslot.className = "spellslot";
+            spellslot.id = "" + level + j;
+            spellslot.onclick = function () {
+                useSpellslot(level)
+            }
+            spellslotsBubbles.append(spellslot);
+        }
+
+        for (var j = 0; usedAmount > j; j++) {
+            let spellslot = document.getElementById(`${level}${j}`)
+            spellslot.className += " used"
+            spellslot.onclick = function () {
+                removeSpellslot(level)
+            }
+        }
     }
 }
 
@@ -286,8 +327,8 @@ function setItems(){
         plus.type = "button"; plus.value="+"; plus.onclick=function() {increaseItem(itemName)};
         minus.type = "button"; minus.value="-"; minus.onclick=function() {decreaseItem(itemName)};
         remove.type = "button"; remove.className = "button"; remove.value = "remove"; remove.onclick=function() {removeItem(itemName)}
-        plusminus.append(plus)
         plusminus.append(minus)
+        plusminus.append(plus)
         buttondiv.append(quantity)
         buttondiv.append(plusminus)
         buttondiv.append(remove)
@@ -333,7 +374,7 @@ async function clearSpellslots(){
             "Authorization": "Bearer " + window.sessionStorage.getItem("JWT")
         }
     }
-    await fetch(`restservices/characters/${charactername}/clearspellslots`, fetchOptions) // Webservice to set the usedSpellslots to 0.
+    await fetch(`restservices/spellslot/${charactername}/clearspellslots`, fetchOptions) // Webservice to set the usedSpellslots to 0.
         .then(async res => {
             if (!res.ok){
                 window.alert(`Something went wrong clearing the spellslots! Status: ${res.status}`)
@@ -391,8 +432,6 @@ function addSkill(){
 function adjustSpellslots(){
     let error = document.querySelector("#spellsloterror")
     error.innerHTML = "";                                                    // Clear the error in case it was still there.
-    let amount = document.querySelector("#amount")
-    amount.setAttribute("value", characterJson.maxSpellslots);   // Set the value of the input to the current amount of spellslots
     let modal = document.querySelector("#spellslotModal")
     modal.style.display = "block";                                           // Open the spellslots modal window
 }
@@ -417,7 +456,7 @@ async function sendSpellslotData(){
         }
     }
 
-    await fetch(`restservices/characters/${charactername}/spellslot`, fetchOptions)
+    await fetch(`restservices/spellslot/${charactername}/spellslot`, fetchOptions)
         .then(async res => {
             if (!res.ok){
                 if (res.status === 400){

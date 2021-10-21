@@ -15,7 +15,7 @@ class AccountTest {
     @BeforeEach
     public void init() throws Exception {
         a1 = new Account("test@email.nl", "wachtwoord");
-        c1 = new Character("John", "High Elf", 18, "Cleric", 5);
+        c1 = new Character("John", "High Elf", 18, "Cleric");
         a1.addCharacter(c1);
     }
 

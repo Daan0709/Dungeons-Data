@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", function (event) {
+    let password = document.querySelector("#password");
+    password.addEventListener("keyup", event => {
+        if (event.key !== "Enter") return;
+        document.querySelector("#loginbutton").click();
+        event.preventDefault();
+    })
+})
+
 async function login() {
     let formData = new FormData(document.querySelector("#loginform"));
     let jsonRequestBody = {};

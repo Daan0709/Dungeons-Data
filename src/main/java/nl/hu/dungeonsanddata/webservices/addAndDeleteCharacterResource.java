@@ -34,7 +34,7 @@ public class addAndDeleteCharacterResource {
                         object.getString("race"),
                         Integer.parseInt(object.getString("experience")),
                         Integer.parseInt(object.getString("hitpoints")),
-                        object.getString("class"), 0);
+                        object.getString("class"));
                 character.setStat("Strength", Integer.parseInt(object.getString("strength")));
                 character.setStat("Charisma", Integer.parseInt(object.getString("charisma")));
                 character.setStat("Wisdom", Integer.parseInt(object.getString("wisdom")));

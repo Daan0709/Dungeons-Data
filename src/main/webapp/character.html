@@ -25,104 +25,112 @@
     </div>
     <hr>
     <div id="topinfo">
-        <div id="character" onclick="openXpModal()"></div>
-        <div id="hitpoints"></div>
-        <div id="spellslotdiv">
-            <input type="button" value="Adjust Spellslots" class="button" id="adjustspellslots" onclick="adjustSpellslots()">
-            <div id="spellslots">
-                <div>Spellslots:</div>
+        <div class="topinfocolumn">
+            <div id="character" onclick="openXpModal()"></div>
+            <input type="button" class="button" id="deletechar" value="Delete Character" onclick="deletePopup()">
+            <div id="stats">
+                <fieldset>
+                    <legend class="red">Stats</legend>
+                    <input type="button" class="button" value="Adjust Stats" onclick="adjustStats()">
+                    <div id="statscontainer">
+                        <div class="stat">Strength
+                            <div>
+                                <div id="strength"></div>
+                                <div class="modifier" id="strengthmodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Dexterity
+                            <div>
+                                <div id="dexterity"></div>
+                                <div class="modifier" id="dexteritymodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Constitution
+                            <div>
+                                <div id="constitution"></div>
+                                <div class="modifier" id="constitutionmodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Intelligence
+                            <div>
+                                <div id="intelligence"></div>
+                                <div class="modifier" id="intelligencemodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Wisdom
+                            <div>
+                                <div id="wisdom"></div>
+                                <div class="modifier" id="wisdommodifier"></div>
+                            </div>
+                        </div>
+                        <div class="stat">Charisma
+                            <div>
+                                <div id="charisma"></div>
+                                <div class="modifier" id="charismamodifier"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
-            <input type="button" value="Clear Spellslots" class="button" id="clearspellslots" onclick="clearSpellslots()">
+            <div id="currencies">
+                <fieldset id="currencyfieldset">
+                    <legend class="red">Currency</legend>
+                    <div class="red" id="totalcurrency">Sample Totalcurrency</div>
+                    <input type="button" class="button" value="Adjust Currency" onclick="adjustCurrency()">
+                    <div id="currencycontainer">
+                        <div class="currency">Platinum
+                            <div id="platinum"></div>
+                        </div>
+                        <div class="currency">Gold
+                            <div id="gold"></div>
+                        </div>
+                        <div class="currency">Silver
+                            <div id="silver"></div>
+                        </div>
+                        <div class="currency">Copper
+                            <div id="copper"></div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
-    </div>
-    <div id="deletechardiv">
-        <input type="button" class="button" id="deletechar" value="Delete Character" onclick="deletePopup()">
-    </div>
-    <div id="stats">
-        <fieldset>
-            <legend class="red">Stats</legend>
-            <input type="button" class="button" value="Adjust Stats" onclick="adjustStats()">
-            <div id="statscontainer">
-                <div class="stat">Strength
-                    <div>
-                        <div id="strength"></div>
-                        <div class="modifier" id="strengthmodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Dexterity
-                    <div>
-                        <div id="dexterity"></div>
-                        <div class="modifier" id="dexteritymodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Constitution
-                    <div>
-                        <div id="constitution"></div>
-                        <div class="modifier" id="constitutionmodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Intelligence
-                    <div>
-                        <div id="intelligence"></div>
-                        <div class="modifier" id="intelligencemodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Wisdom
-                    <div>
-                        <div id="wisdom"></div>
-                        <div class="modifier" id="wisdommodifier"></div>
-                    </div>
-                </div>
-                <div class="stat">Charisma
-                    <div>
-                        <div id="charisma"></div>
-                        <div class="modifier" id="charismamodifier"></div>
-                    </div>
+        <div id="hitpoints"></div>
+        <div class="spellslotdiv">
+            <div class="spellslots">
+                <div class="spellslotcontainer">Spellslots:</div>
+                <div class="flex-align-center gap">
+                    <input type="button" value="Clear Spellslots" class="button" id="clearspellslots" onclick="clearSpellslots()">
+                    <input type="button" value="Adjust Spellslots" class="button" id="adjustspellslots" onclick="adjustSpellslots()">
                 </div>
             </div>
-        </fieldset>
-    </div>
-    <div id="currencies">
-        <fieldset id="currencyfieldset">
-            <legend class="red">Currency</legend>
-            <div class="red" id="totalcurrency">Sample Totalcurrency</div>
-            <input type="button" class="button" value="Adjust Currency" onclick="adjustCurrency()">
-            <div id="currencycontainer">
-                <div class="currency">Platinum
-                    <div id="platinum"></div>
-                </div>
-                <div class="currency">Gold
-                    <div id="gold"></div>
-                </div>
-                <div class="currency">Silver
-                    <div id="silver"></div>
-                </div>
-                <div class="currency">Copper
-                    <div id="copper"></div>
-                </div>
-            </div>
-        </fieldset>
+        </div>
     </div>
     <div class="grid">
         <div class="wrapper" id="itemgrid">
-            <div class="red">Items</div>
+            <div class="other">Items</div>
             <input type="button" class="button" value="Add Item" onclick="addItem()">
             <div id="weight">Weight</div>
-            <div class="red">Qt</div>
+            <div class="other">Qt</div>
         </div>
         <div class="wrapper" id="skillgrid">
-            <div class="red">Skills</div>
+            <div class="other">Skills</div>
             <input type="button" class="button" value="Add Skill" onclick="addSkill()">
         </div>
         <div class="wrapper" id="spellgrid">
-            <div class="red">Spells</div>
+            <div class="other">Spells</div>
             <input type="button" class="button" value="Add Spell" onclick="addSpell()">
         </div>
-        <div id="items" class="contentbox itemscontentbox">
+        <div>
+            <div id="items" class="contentbox itemscontentbox">
+            </div>
         </div>
-        <div id="skills" class="contentbox bigspace">
+        <div>
+            <div id="skills" class="contentbox bigspace">
+            </div>
         </div>
-        <div id="spells" class="contentbox bigspace"></div>
+        <div>
+            <div id="spells" class="contentbox bigspace"></div>
+        </div>
     </div>
     <div id="modalWindow" class="modal">
         <div class="modal-content">
@@ -152,6 +160,18 @@
             </div>
             <form id="spellslotsform">
                 <div class="formwrapper">
+                    <label for="spellslotlevel">Level of spellslot:</label>
+                    <select id="spellslotlevel" name="spellslotlevel">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
                     <label for="amount">Amount:</label>
                     <input id="amount" name="amount" type="number">
                 </div>

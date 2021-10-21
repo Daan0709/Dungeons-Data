@@ -14,7 +14,7 @@ class CharacterTest {
 
     @BeforeEach
     public void init() throws WrongTypeException {
-        c1 = new Character("John", "High Elf", 300, 17, "Ranger", 3);
+        c1 = new Character("John", "High Elf", 300, 17, "Ranger");
     }
 
     @Test
@@ -138,10 +138,6 @@ class CharacterTest {
          * Het aantal spellslots van een character kan niet
          * lager zijn dan 0.
          */
-        c1.setMaxSpellslots(-1);
-        assertEquals(3, c1.getMaxSpellslots());
-        c1.setMaxSpellslots(0);
-        assertEquals(0, c1.getMaxSpellslots());
     }
 
     @Test
@@ -152,12 +148,6 @@ class CharacterTest {
          * een character komen.
          * maxSpellslots van c1 = 3.
          */
-        for (int i = 0; i < c1.getMaxSpellslots(); i++){
-            c1.useSpellslot();
-        }
-        c1.useSpellslot(); // 4e keer verbruik spellslot
-
-        assertEquals(3, c1.getVerbruikteSpellslots());
     }
 
     @Test
@@ -212,7 +202,7 @@ class CharacterTest {
     @Test
     public void testCharacterAanmakenInvalidClass() {
         try {
-            c2 = new Character("Jack", "Wood Elf", 300, 17, "Rrangger", 3);
+            c2 = new Character("Jack", "Wood Elf", 300, 17, "Rrangger");
             assertTrue(c2 == null);
         } catch (WrongTypeException wte){
             assertTrue(c2 == null);
